@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "id": "modid",
+  "id": "lostarcana",
   "version": "${version}",
 
-  "name": "Example Mod",
+  "name": "Lost Arcana",
   "description": "This is an example description! Tell everyone what your mod is about!",
   "authors": [
     "Me!"
@@ -18,10 +18,22 @@
 
   "environment": "*",
   "entrypoints": {
+    "fabric-datagen": [
+      {
+        "adapter": "kotlin",
+        "value": "com.oyosite.ticon.lostarcana.datagen.DataGenEntrypoint"
+      }
+    ],
     "main": [
       {
         "adapter": "kotlin",
-        "value": "net.fabricmc.example.ExampleMod"
+        "value": "com.oyosite.ticon.lostarcana.LostArcana"
+      }
+    ],
+    "client": [
+      {
+        "adapter": "kotlin",
+        "value": "com.oyosite.ticon.lostarcana.LostArcanaClient"
       }
     ]
   },

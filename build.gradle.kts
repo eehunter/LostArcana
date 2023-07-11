@@ -14,6 +14,9 @@ repositories {
     // Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
     // See https://docs.gradle.org/current/userguide/declaring_repositories.html
     // for more information about repositories.
+    maven { setUrl("https://ladysnake.jfrog.io/artifactory/mods");name = "Ladysnake Libs" }
+    maven { setUrl("https://maven.jamieswhiteshirt.com/libs-release"); content { includeGroup("com.jamieswhiteshirt") }}
+    maven { setUrl("https://jitpack.io") }
 }
 
 dependencies {
@@ -23,11 +26,27 @@ dependencies {
 
     modImplementation("net.fabricmc:fabric-language-kotlin:${property("fabric_kotlin_version")}")
     modImplementation("net.fabricmc.fabric-api:fabric-api:${property("fabric_api_version")}")
+
+    listOf("base", "chunk").forEach{
+        modImplementation("dev.onyxstudios.cardinal-components-api:cardinal-components-$it:${property("cardinal_components_version")}")
+        include("dev.onyxstudios.cardinal-components-api:cardinal-components-$it:${property("cardinal_components_version")}")
+    }
+
+    modImplementation("com.github.apace100:calio:v${property("calio_version")}")
+
+    modImplementation("com.jamieswhiteshirt:reach-entity-attributes:${property("reach_version")}")
+
+    //modImplementation("dev.onyxstudios.cardinal-components-api:cardinal-components-base:${property("cardinal_components_version")}")
+    //modImplementation("dev.onyxstudios.cardinal-components-api:cardinal-components-chunk:${property("cardinal_components_version")}")
+
+    //include("dev.onyxstudios.cardinal-components-api:cardinal-components-base:${property("cardinal_components_version")}")
+    //include("dev.onyxstudios.cardinal-components-api:cardinal-components-chunk:${property("cardinal_components_version")}")
 }
 
 tasks {
 
     processResources {
+        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
         inputs.property("version", project.version)
         filesMatching("fabric.mod.json") {
             expand(getProperties())
@@ -58,6 +77,10 @@ tasks {
         }
     }
 
+    compileJava {
+        targetCompatibility = "17"
+    }
+
     compileKotlin {
         kotlinOptions.jvmTarget = "17"
     }
@@ -71,6 +94,30 @@ java {
     withSourcesJar()
 }
 
+loom{
 
+    runs {
+
+        create("Data Generation"){
+            client()
+            vmArg("-Dfabric-api.datagen")
+            vmArg("-Dfabric-api.datagen.output-dir=${file("src/main/generated")}")
+            vmArg("-Dfabric-api.datagen.strict_validation")
+
+            ideConfigGenerated(true)
+            runDir = "build/datagen"
+
+
+        }
+    }
+}
+
+sourceSets{
+    main{
+        resources{
+            srcDirs("src/main/generated", "src/main/resources")
+        }
+    }
+}
 
 // configure the maven publication

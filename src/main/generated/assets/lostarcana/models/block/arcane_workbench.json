@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "minecraft:block/oak_planks",
+    "east": "lostarcana:block/arcane_workbench_side",
+    "north": "lostarcana:block/arcane_workbench_side",
+    "particle": "lostarcana:block/arcane_workbench_top",
+    "south": "lostarcana:block/arcane_workbench_side",
+    "up": "lostarcana:block/arcane_workbench_top",
+    "west": "lostarcana:block/arcane_workbench_side"
+  }
+}
