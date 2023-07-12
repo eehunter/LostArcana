@@ -1,4 +1,11 @@
 {
+  "aspect.lostarcana.aer": "Aer",
+  "aspect.lostarcana.aqua": "Aqua",
+  "aspect.lostarcana.ignis": "Ignis",
+  "aspect.lostarcana.motus": "Motus",
+  "aspect.lostarcana.ordo": "Ordo",
+  "aspect.lostarcana.perditio": "Perditio",
+  "aspect.lostarcana.terra": "Terra",
   "block.lostarcana.arcane_workbench": "Arcane Workbench",
   "item.lostarcana.salis_mundis": "Salis Mundis",
   "item.lostarcana.vis_crystal": "Vis Crystal"

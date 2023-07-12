@@ -11,7 +11,7 @@ import net.minecraft.registry.Registry
 
 object BlockRegistry: AutoRegistry<Block>(Block::class.java, Registries.BLOCK, { Registry.register(Registries.ITEM, it.first, BlockItem(it.second, it.second.itemSettings))}) {
 
-    val ARCANE_WORKBENCH = Block{}
+    val ARCANE_WORKBENCH = ArcaneWorkbenchBlock()
 
 
 

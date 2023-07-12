@@ -19,6 +19,7 @@ class ArcanaModelGenerator(generator: FabricDataOutput): FabricModelProvider(gen
 
     override fun generateItemModels(img: ItemModelGenerator) {
         img.register(ItemRegistry.SALIS_MUNDIS, Models.GENERATED)
+        img.register(ItemRegistry.VIS_CRYSTAL, Models.GENERATED)
     }
 
 }

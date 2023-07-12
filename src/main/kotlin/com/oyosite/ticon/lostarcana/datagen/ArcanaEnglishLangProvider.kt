@@ -1,5 +1,6 @@
 package com.oyosite.ticon.lostarcana.datagen
 
+import com.oyosite.ticon.lostarcana.aspect.AspectRegistry
 import com.oyosite.ticon.lostarcana.block.BlockRegistry
 import com.oyosite.ticon.lostarcana.item.ItemRegistry
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
@@ -10,5 +11,7 @@ class ArcanaEnglishLangProvider(generator: FabricDataOutput): FabricLanguageProv
         tb.add(BlockRegistry.ARCANE_WORKBENCH, "Arcane Workbench")
         tb.add(ItemRegistry.SALIS_MUNDIS, "Salis Mundis")
         tb.add(ItemRegistry.VIS_CRYSTAL, "Vis Crystal")
+        AspectRegistry.ASPECTS.values.forEach(tb::add)
+        tb.add("itemGroup.lostarcana.items", "Lost Arcana Items")
     }
 }
