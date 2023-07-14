@@ -78,11 +78,11 @@ tasks {
     }
 
     compileJava {
-        targetCompatibility = "17"
+        targetCompatibility = "18"
     }
 
     compileKotlin {
-        kotlinOptions.jvmTarget = "17"
+        kotlinOptions.jvmTarget = "18"
     }
 
 }

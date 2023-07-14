@@ -1,6 +1,9 @@
-// 1.20.1	2023-07-11T16:43:35.561108737	Lost Arcana/Model Definitions
+// 1.20.1	2023-07-13T14:29:56.07591721	Lost Arcana/Model Definitions
+48e8f036157ee34629e63cd90c5ed54b589cc4f5 assets/lostarcana/blockstates/crucible.json
+ab3f2276b2f994dfc106493c9b35388f61d41163 assets/lostarcana/models/block/crucible.json
 cdd007da37a4e8ae4d502511500fd57a3f4bc642 assets/lostarcana/blockstates/arcane_workbench.json
 8fb5db3af123d99a58588a6126ba9a44074c2a01 assets/lostarcana/models/item/vis_crystal.json
 8ecfb03e398b634e349d903d60b200326cb26ac4 assets/lostarcana/models/item/arcane_workbench.json
 173ae4615962866ace6c653bff3b32f92f1d3506 assets/lostarcana/models/item/salis_mundis.json
 2903a0d43f8b1b2f8b4fbf1b86f75caa6f7ea009 assets/lostarcana/models/block/arcane_workbench.json
+1e28c1f4356396b82b006f499a891f33949965e7 assets/lostarcana/models/item/crucible.json

@@ -8,5 +8,6 @@
   "aspect.lostarcana.terra": "Terra",
   "block.lostarcana.arcane_workbench": "Arcane Workbench",
   "item.lostarcana.salis_mundis": "Salis Mundis",
-  "item.lostarcana.vis_crystal": "Vis Crystal"
+  "item.lostarcana.vis_crystal": "Vis Crystal",
+  "itemGroup.lostarcana.items": "Lost Arcana Items"
 }

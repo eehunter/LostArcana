@@ -14,7 +14,7 @@
   },
 
   "license": "CC0-1.0",
-  "icon": "assets/modid/icon.png",
+  "icon": "assets/lostarcana/icon.png",
 
   "environment": "*",
   "entrypoints": {
@@ -38,7 +38,7 @@
     ]
   },
   "mixins": [
-    "modid.mixins.json"
+    "lostarcana.mixins.json"
   ],
 
   "depends": {
