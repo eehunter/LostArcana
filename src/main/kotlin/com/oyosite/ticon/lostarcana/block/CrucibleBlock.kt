@@ -11,6 +11,8 @@ import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorageUtil
 import net.minecraft.block.*
 import net.minecraft.block.cauldron.CauldronBehavior
 import net.minecraft.block.entity.BlockEntity
+import net.minecraft.block.entity.BlockEntityTicker
+import net.minecraft.block.entity.BlockEntityType
 import net.minecraft.client.MinecraftClient
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.fluid.Fluid
@@ -28,6 +30,7 @@ import net.minecraft.util.shape.VoxelShape
 import net.minecraft.util.shape.VoxelShapes
 import net.minecraft.world.BlockView
 import net.minecraft.world.World
+import kotlin.jvm.optionals.getOrNull
 
 @Suppress("OVERRIDE_DEPRECATION", "UnstableApiUsage")
 open class CrucibleBlock: AbstractCauldronBlock(FabricBlockSettings.create(), CRUCIBLE_BEHAVIOR), BlockEntityProvider {
@@ -64,6 +67,9 @@ open class CrucibleBlock: AbstractCauldronBlock(FabricBlockSettings.create(), CR
         }
     }
 
+    override fun <T : BlockEntity> getTicker(world: World, state: BlockState, type: BlockEntityType<T>): BlockEntityTicker<T>? =
+        if(type == LostArcana.CRUCIBLE_BLOCK_ENTITY) BlockEntityTicker(CrucibleBlockEntity::tick) as BlockEntityTicker<T> else null
+
     override fun canBeFilledByDripstone(fluid: Fluid): Boolean = fluid == Fluids.WATER
 
     override fun onUse(
@@ -82,11 +88,14 @@ open class CrucibleBlock: AbstractCauldronBlock(FabricBlockSettings.create(), CR
 
         }*/
 
-        if(world.isClient){
+        world.getBlockEntity(pos, LostArcana.CRUCIBLE_BLOCK_ENTITY).getOrNull()?.dissolveBubbleTime = 10
+
+
+        /*if(world.isClient){
             assert(MinecraftClient.getInstance() is MinecraftClientAccessor)
             val mca: MinecraftClientAccessor = MinecraftClient.getInstance() as MinecraftClientAccessor
             println(mca.blockEntityRenderDispatcher[world.getBlockEntity(pos, LostArcana.CRUCIBLE_BLOCK_ENTITY).get()])
-        }
+        }*/
 
 
         return super.onUse(state, world, pos, player, hand, hit)

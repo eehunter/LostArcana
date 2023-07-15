@@ -17,4 +17,9 @@ class VisCrystalItem: Item(FabricItemSettings()) {
         super.appendTooltip(stack, world, tooltip, context)
 
     }
+
+    fun getAspect(stack: ItemStack) = AspectRegistry[LostArcana.id(stack.getSubNbt("vis")?.getString("aspect")?:"null")]
+
+
+
 }

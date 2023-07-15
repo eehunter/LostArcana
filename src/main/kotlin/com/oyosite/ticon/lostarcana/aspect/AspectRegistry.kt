@@ -1,8 +1,12 @@
 package com.oyosite.ticon.lostarcana.aspect
 
 import com.oyosite.ticon.lostarcana.LostArcana
+import com.oyosite.ticon.lostarcana.fluid.EssentiaFluid
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant
+import net.minecraft.nbt.NbtCompound
 import net.minecraft.util.Identifier
 
+@Suppress("UnstableApiUsage")
 object AspectRegistry: Map<Identifier, Aspect> {
     val ASPECTS = mutableMapOf(*mutableListOf(
         "aer"      to 0xf6f775,
@@ -15,8 +19,31 @@ object AspectRegistry: Map<Identifier, Aspect> {
 
 
     init{
+        A("vacuos", 0, "aer", "perditio")
+        A("lux", 0, "aer", "ignis")
         A("motus", 0xc8befa, "aer", "ordo")
+        A("gelum", 0, "ignis", "perditio")
+        A("vitrius", 0, "terra", "aer")
+        A("metallum", 0, "terra", "ordo")
+        A("victus", 0, "terra", "aqua")
+        A("mortuus", 0, "victus", "perditio")
+        A("potentia", 0, "ordo", "ignis")
+        A("permutatio", 0, "perditio", "ordo")
+        A("praecantatio", 0, "potentia", "aer")
+        A("aurum", 0, "praecantatio", "aer")
+        A("alkima", 0, "praecantatio", "aqua")
+        A("vitium", 0, "perditio", "praecantatio")
+        A("tenebrae", 0, "vacuos", "lux")
+        A("alienis", 0, "vacuos", "tenebrae")
+        A("volatus", 0, "aer", "motus")
+        A("herba", 0, "victus", "terra")
+    }
 
+    fun reloadEssentiaVariants(){
+        EssentiaFluid.VARIANTS.clear()
+        ASPECTS.forEach { id, aspect ->
+            EssentiaFluid.VARIANTS[id] = FluidVariant.of(LostArcana.ESSENTIA, NbtCompound().apply { putString("aspect", id.toString()); putInt("color", aspect.color) })
+        }
     }
 
     fun A(name: String, color: Int, component1: String, component2: String){

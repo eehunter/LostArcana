@@ -4,6 +4,7 @@ import com.oyosite.ticon.lostarcana.block.BlockRegistry
 import com.oyosite.ticon.lostarcana.block.entity.ArcaneWorkbenchBlockEntity
 import com.oyosite.ticon.lostarcana.block.entity.ArcaneWorkbenchScreenHandler
 import com.oyosite.ticon.lostarcana.block.entity.CrucibleBlockEntity
+import com.oyosite.ticon.lostarcana.fluid.EssentiaFluid
 import com.oyosite.ticon.lostarcana.item.ItemRegistry
 import net.fabricmc.api.ModInitializer
 import net.fabricmc.fabric.api.`object`.builder.v1.block.entity.FabricBlockEntityTypeBuilder
@@ -26,6 +27,8 @@ object LostArcana : ModInitializer {
     val ARCANE_WORKBENCH_SCREEN_HANDLER: ScreenHandlerType<ArcaneWorkbenchScreenHandler> = Registry.register(Registries.SCREEN_HANDLER, id("arcane_workbench"), ScreenHandlerType<ArcaneWorkbenchScreenHandler>(::ArcaneWorkbenchScreenHandler, FeatureFlags.VANILLA_FEATURES))
 
     val CRUCIBLE_BLOCK_ENTITY: BlockEntityType<CrucibleBlockEntity> = Registry.register(Registries.BLOCK_ENTITY_TYPE, id("crucible"), FabricBlockEntityTypeBuilder.create(::CrucibleBlockEntity).addBlock(BlockRegistry.CRUCIBLE).build())
+
+    val ESSENTIA = Registry.register(Registries.FLUID, id("essentia"), EssentiaFluid())
 
     override fun onInitialize(){
         //println("ItemRegistry class: ${ItemRegistry.clazz.name}")
