@@ -1,0 +1,13 @@
+{
+  "type": "lostarcana:alchemy",
+  "catalyst": {
+    "item": "minecraft:glowstone_dust"
+  },
+  "essentia": {
+    "lostarcana:lux": 4050
+  },
+  "result": {
+    "item": "lostarcana:nitor",
+    "tag": "{nitor:{color:\"yellow\"}}"
+  }
+}

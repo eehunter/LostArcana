@@ -1,8 +1,11 @@
 package com.oyosite.ticon.lostarcana.block
 
 import com.oyosite.ticon.lostarcana.LostArcana
+import com.oyosite.ticon.lostarcana.aspect.ItemAspectRegistry
 import com.oyosite.ticon.lostarcana.block.entity.CrucibleBlockEntity
+import com.oyosite.ticon.lostarcana.fluid.EssentiaFluid
 import com.oyosite.ticon.lostarcana.mixin.MinecraftClientAccessor
+import com.oyosite.ticon.lostarcana.recipe.AlchemyRecipe
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap
 import net.fabricmc.fabric.api.`object`.builder.v1.block.FabricBlockSettings
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext
@@ -14,6 +17,7 @@ import net.minecraft.block.entity.BlockEntity
 import net.minecraft.block.entity.BlockEntityTicker
 import net.minecraft.block.entity.BlockEntityType
 import net.minecraft.client.MinecraftClient
+import net.minecraft.entity.ItemEntity
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.fluid.Fluid
 import net.minecraft.fluid.Fluids
@@ -87,9 +91,20 @@ open class CrucibleBlock: AbstractCauldronBlock(FabricBlockSettings.create(), CR
             }
 
         }*/
+        world.getBlockEntity(pos, LostArcana.CRUCIBLE_BLOCK_ENTITY).getOrNull()?.also { be ->
+            //TODO: Handle crafting here
+            be.pseudoInventory.lastUser = player
+            be.pseudoInventory.activeStack = player.getStackInHand(hand)
+            world.recipeManager.getFirstMatch(AlchemyRecipe.Type, be.pseudoInventory, world).getOrNull()?.also { recipe ->
 
-        world.getBlockEntity(pos, LostArcana.CRUCIBLE_BLOCK_ENTITY).getOrNull()?.dissolveBubbleTime = 10
+                world.spawnEntity(ItemEntity(world, pos.x+0.5, pos.y+1.0, pos.z+0.5, recipe.craft(be.pseudoInventory, world.registryManager)))//
+                return ActionResult.SUCCESS
+            }
 
+            //dissolveItem(state, world, pos, player, hand, player.getStackInHand(hand))
+
+
+        }
 
         /*if(world.isClient){
             assert(MinecraftClient.getInstance() is MinecraftClientAccessor)
@@ -104,8 +119,24 @@ open class CrucibleBlock: AbstractCauldronBlock(FabricBlockSettings.create(), CR
     companion object{
         val CRUCIBLE_BEHAVIOR: Object2ObjectOpenHashMap<Item, CauldronBehavior> = CauldronBehavior.createMap().apply{defaultReturnValue(::dissolveItem)}
 
-        fun dissolveItem(state: BlockState, world: World, pos: BlockPos, player: PlayerEntity, hand: Hand, stack: ItemStack): ActionResult{
-            //TODO(Implement this)
+        fun dissolveItem(state: BlockState, world: World, pos: BlockPos, player: PlayerEntity, hand: Hand, stack: ItemStack, be: CrucibleBlockEntity? = world.getBlockEntity(pos, LostArcana.CRUCIBLE_BLOCK_ENTITY).getOrNull()): ActionResult{
+            be?:return ActionResult.PASS
+            if(!be.isHeated) return ActionResult.PASS
+            var dissolved = false
+            //println(stack)
+            //println(ItemAspectRegistry[stack])
+            ItemAspectRegistry[stack]?.forEach{ aspect ->
+                EssentiaFluid.VARIANTS[aspect.first.id.toString()]?.also {
+                    be.essentiaContent[it] = (be.essentiaContent[it]?:0L) + aspect.second.toLong()
+                    dissolved = true
+                }
+            }
+            if(dissolved){
+                if(!player.isCreative)stack.decrement(1)
+                be.dissolveBubbleTime = 10
+                return ActionResult.SUCCESS
+            }
+
             return ActionResult.PASS
         }
     }

@@ -2,6 +2,7 @@ package com.oyosite.ticon.lostarcana.block.entity
 
 import com.oyosite.ticon.lostarcana.LostArcana
 import com.oyosite.ticon.lostarcana.aspect.AspectRegistry
+import com.oyosite.ticon.lostarcana.block.BlockRegistry
 import com.oyosite.ticon.lostarcana.fluid.EssentiaFluid
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorageUtil
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant
@@ -31,6 +32,8 @@ class CrucibleBlockEntity(pos: BlockPos, state: BlockState): BlockEntity(LostArc
 
     val fluidContent: SingleFluidStorage = insertOnlyWithFixedCapacity(81000L){}
     val essentiaContent: MutableMap<FluidVariant, Long> = mutableMapOf()
+
+    val pseudoInventory = CruciblePseudoInventory(this)
 
     val isHeated: Boolean get() = heat>=8
     var heat: Int = 0
@@ -63,21 +66,22 @@ class CrucibleBlockEntity(pos: BlockPos, state: BlockState): BlockEntity(LostArc
         val essentia = nbt.getCompound("essentia")
         essentia.keys.forEach {
             val id = LostArcana.id(it)
-            EssentiaFluid.VARIANTS[id]?.also{ v ->
+            EssentiaFluid.VARIANTS[id.toString()]?.also{ v ->
                 essentiaContent[v] = essentia.getLong(it)
             }
         }
     }
 
     companion object{
-        val HEAT_BLOCKS = mutableMapOf<Block, Int>(Blocks.TORCH to 2, Blocks.SOUL_TORCH to 4, Blocks.CAMPFIRE to 3, Blocks.SOUL_CAMPFIRE to 6, Blocks.LAVA to 5)
+        val HEAT_BLOCKS = mutableMapOf<Block, Int>(Blocks.TORCH to 2, Blocks.SOUL_TORCH to 4, Blocks.CAMPFIRE to 3, Blocks.SOUL_CAMPFIRE to 6, Blocks.LAVA to 5, BlockRegistry.NITOR to 8)
         fun getHeat(block: BlockState): Int = HEAT_BLOCKS[block.block]?:0
 
         fun tick(world: World, pos: BlockPos, state: BlockState, be: CrucibleBlockEntity){
             if(world.time%5==0L)be.heat=(be.heat * 0.9).toInt() + getHeat(world.getBlockState(pos.down()))
             world.playSound(null, pos, SoundEvents.BLOCK_BUBBLE_COLUMN_BUBBLE_POP, SoundCategory.BLOCKS)
+            if(be.dissolveBubbleTime>5)world.playSound(null, pos, SoundEvents.BLOCK_BUBBLE_COLUMN_UPWARDS_INSIDE, SoundCategory.BLOCKS)
             if(be.dissolveBubbleTime>0) {
-                world.playSound(null, pos, SoundEvents.BLOCK_BUBBLE_COLUMN_UPWARDS_INSIDE, SoundCategory.BLOCKS)
+
                 be.dissolveBubbleTime--
             }
         }

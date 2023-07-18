@@ -19,17 +19,17 @@ object AspectRegistry: Map<Identifier, Aspect> {
 
 
     init{
-        A("vacuos", 0, "aer", "perditio")
-        A("lux", 0, "aer", "ignis")
+        A("vacuos", 0x858585, "aer", "perditio")
+        A("lux", 0xfcfebb, "aer", "ignis")
         A("motus", 0xc8befa, "aer", "ordo")
-        A("gelum", 0, "ignis", "perditio")
-        A("vitrius", 0, "terra", "aer")
-        A("metallum", 0, "terra", "ordo")
-        A("victus", 0, "terra", "aqua")
-        A("mortuus", 0, "victus", "perditio")
-        A("potentia", 0, "ordo", "ignis")
-        A("permutatio", 0, "perditio", "ordo")
-        A("praecantatio", 0, "potentia", "aer")
+        A("gelum", 0xe3fffa, "ignis", "perditio")
+        A("vitrius", 0x7fffff, "terra", "aer")
+        A("metallum", 0xb5b6cc, "terra", "ordo")
+        A("victus", 0xc10e16, "terra", "aqua")
+        A("mortuus", 0x680106, "victus", "perditio")
+        A("potentia", 0xc9fbfc, "ordo", "ignis")
+        A("permutatio", 0x598360, "perditio", "ordo")
+        A("praecantatio", 0xcd00ff, "potentia", "aer")
         A("aurum", 0, "praecantatio", "aer")
         A("alkima", 0, "praecantatio", "aqua")
         A("vitium", 0, "perditio", "praecantatio")
@@ -37,12 +37,13 @@ object AspectRegistry: Map<Identifier, Aspect> {
         A("alienis", 0, "vacuos", "tenebrae")
         A("volatus", 0, "aer", "motus")
         A("herba", 0, "victus", "terra")
+        reloadEssentiaVariants()
     }
 
     fun reloadEssentiaVariants(){
         EssentiaFluid.VARIANTS.clear()
         ASPECTS.forEach { id, aspect ->
-            EssentiaFluid.VARIANTS[id] = FluidVariant.of(LostArcana.ESSENTIA, NbtCompound().apply { putString("aspect", id.toString()); putInt("color", aspect.color) })
+            EssentiaFluid.VARIANTS[id.toString()] = FluidVariant.of(LostArcana.ESSENTIA, NbtCompound().apply { putString("aspect", id.toString()); putInt("color", aspect.color) })
         }
     }
 

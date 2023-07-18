@@ -1,11 +1,14 @@
 package com.oyosite.ticon.lostarcana
 
+import com.oyosite.ticon.lostarcana.aspect.AspectRegistry
 import com.oyosite.ticon.lostarcana.block.BlockRegistry
 import com.oyosite.ticon.lostarcana.block.entity.ArcaneWorkbenchBlockEntity
 import com.oyosite.ticon.lostarcana.block.entity.ArcaneWorkbenchScreenHandler
 import com.oyosite.ticon.lostarcana.block.entity.CrucibleBlockEntity
 import com.oyosite.ticon.lostarcana.fluid.EssentiaFluid
 import com.oyosite.ticon.lostarcana.item.ItemRegistry
+import com.oyosite.ticon.lostarcana.recipe.AlchemyRecipe
+import com.oyosite.ticon.lostarcana.recipe.NitorDyeRecipe
 import net.fabricmc.api.ModInitializer
 import net.fabricmc.fabric.api.`object`.builder.v1.block.entity.FabricBlockEntityTypeBuilder
 import net.minecraft.block.entity.BlockEntityType
@@ -32,8 +35,14 @@ object LostArcana : ModInitializer {
 
     override fun onInitialize(){
         //println("ItemRegistry class: ${ItemRegistry.clazz.name}")
+        AspectRegistry
         BlockRegistry.registerAll()
         ItemRegistry.registerAll()
+        //AlchemyRecipe.Type
+        Registry.register(Registries.RECIPE_TYPE, id("alchemy"), AlchemyRecipe.Type)
+        Registry.register(Registries.RECIPE_SERIALIZER, id("alchemy"), AlchemyRecipe.Serializer)
+        //Registry.register(Registries.RECIPE_TYPE, id("nitor_dye"), NitorDyeRecipe.Type)
+        Registry.register(Registries.RECIPE_SERIALIZER, id("nitor_dye"), NitorDyeRecipe.Serializer)
         //Registry.register(Registries.RECIPE_TYPE, id("structure_transformation"), StructureTransformationRecipe.Type)
     }
 

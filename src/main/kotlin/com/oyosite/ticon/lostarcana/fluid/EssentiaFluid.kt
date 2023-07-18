@@ -43,7 +43,9 @@ class EssentiaFluid : Fluid() {
     override fun getShape(state: FluidState?, world: BlockView?, pos: BlockPos?): VoxelShape = VoxelShapes.cuboid(0.0,0.0,0.0,1.0,1.0,1.0)
 
     companion object{
-        val VARIANTS = mutableMapOf<Identifier,FluidVariant>()
+        val VARIANTS = mutableMapOf<String,FluidVariant>()
+
+        operator fun get(id: String) = VARIANTS[LostArcana.id(id).toString()]
 
     }
 }

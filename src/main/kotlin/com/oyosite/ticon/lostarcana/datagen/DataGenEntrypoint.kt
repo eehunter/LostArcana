@@ -9,6 +9,7 @@ object DataGenEntrypoint: DataGeneratorEntrypoint {
         val pack = dataGen.createPack()//createBuiltinResourcePack(LostArcana.id("lostarcana"))
         pack.addProvider(::ArcanaModelGenerator)
         pack.addProvider(::ArcanaEnglishLangProvider)
+        pack.addProvider(::ArcanaRecipeGen)
     }
 
 }

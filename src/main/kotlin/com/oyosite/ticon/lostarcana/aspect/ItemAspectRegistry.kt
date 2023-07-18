@@ -1,6 +1,7 @@
 package com.oyosite.ticon.lostarcana.aspect
 
 import com.oyosite.ticon.lostarcana.LostArcana
+import com.oyosite.ticon.lostarcana.item.EssentiaItem
 import com.oyosite.ticon.lostarcana.item.VisCrystalItem
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
@@ -13,7 +14,7 @@ object ItemAspectRegistry: Map<Identifier, List<Pair<Aspect,Int>>> {
     operator fun get(item: Item): List<Pair<Aspect,Int>>? = this[Registries.ITEM.getId(item)]
     operator fun get(stack: ItemStack): List<Pair<Aspect,Int>>? {
         val otpt = mutableListOf<Pair<Aspect,Int>>()
-        if(stack.item is VisCrystalItem) (stack.item as VisCrystalItem).getAspect(stack)?.let{otpt.add(it to 810)}
+        if(stack.item is EssentiaItem) (stack.item as EssentiaItem).getAspects(stack)?.also(otpt::addAll)
         this[stack.item]?.also(otpt::addAll)
         return if(otpt.isEmpty()) null else otpt
     }

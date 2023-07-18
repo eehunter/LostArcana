@@ -32,7 +32,7 @@ import kotlin.random.Random
 class CrucibleBlockEntityRenderer(ctx: BlockEntityRendererFactory.Context) : BlockEntityRenderer<CrucibleBlockEntity>{
 
     init{
-        println("Initializing CrucibleBlockEntityRenderer.")
+        //println("Initializing CrucibleBlockEntityRenderer.")
     }
 
     override fun rendersOutsideBoundingBox(blockEntity: CrucibleBlockEntity?): Boolean = true
