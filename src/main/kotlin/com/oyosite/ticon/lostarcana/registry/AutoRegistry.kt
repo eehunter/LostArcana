@@ -21,7 +21,7 @@ open class AutoRegistry<T>(val registryOf: Class<T>, private val registerAllFunc
     fun registerAll() = this.registerAllFunction()
 
     companion object{
-        private fun <T> registerSingleToRegistry(registry: Registry<T>, single: Pair<Identifier, T>){ Registry.register(registry, single.first, single.second); println(single.first) }
+        private fun <T> registerSingleToRegistry(registry: Registry<T>, single: Pair<Identifier, T>){ Registry.register(registry, single.first, single.second) }//; println(single.first) }
         @Suppress("unchecked_cast")
         private fun <T> retrieveObjects(autoRegistry: AutoRegistry<T>): List<Pair<Identifier,T>>{
             val fields = autoRegistry.clazz.kotlin.declaredMemberProperties.filter {

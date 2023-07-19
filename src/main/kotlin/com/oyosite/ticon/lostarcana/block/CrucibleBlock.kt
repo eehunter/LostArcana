@@ -3,6 +3,7 @@ package com.oyosite.ticon.lostarcana.block
 import com.oyosite.ticon.lostarcana.LostArcana
 import com.oyosite.ticon.lostarcana.aspect.ItemAspectRegistry
 import com.oyosite.ticon.lostarcana.block.entity.CrucibleBlockEntity
+import com.oyosite.ticon.lostarcana.component.LostArcanaComponentEntrypoint
 import com.oyosite.ticon.lostarcana.fluid.EssentiaFluid
 import com.oyosite.ticon.lostarcana.mixin.MinecraftClientAccessor
 import com.oyosite.ticon.lostarcana.recipe.AlchemyRecipe
@@ -97,7 +98,7 @@ open class CrucibleBlock: AbstractCauldronBlock(FabricBlockSettings.create(), CR
             be.pseudoInventory.activeStack = player.getStackInHand(hand)
             world.recipeManager.getFirstMatch(AlchemyRecipe.Type, be.pseudoInventory, world).getOrNull()?.also { recipe ->
 
-                world.spawnEntity(ItemEntity(world, pos.x+0.5, pos.y+1.0, pos.z+0.5, recipe.craft(be.pseudoInventory, world.registryManager)))//
+                world.spawnEntity(ItemEntity(world, pos.x+0.5, pos.y+1.0, pos.z+0.5, recipe.craft(be.pseudoInventory, world.registryManager)).also{LostArcanaComponentEntrypoint.CRAFTING_RESULT_MARKER[it].flag = true})//
                 return ActionResult.SUCCESS
             }
 

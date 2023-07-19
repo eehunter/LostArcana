@@ -14,7 +14,7 @@ repositories {
     // Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
     // See https://docs.gradle.org/current/userguide/declaring_repositories.html
     // for more information about repositories.
-    maven { setUrl("https://ladysnake.jfrog.io/artifactory/mods");name = "Ladysnake Libs" }
+    maven { setUrl("https://maven.ladysnake.org/releases");name = "Ladysnake Mods" }
     maven { setUrl("https://maven.jamieswhiteshirt.com/libs-release"); content { includeGroup("com.jamieswhiteshirt") }}
     maven { setUrl("https://jitpack.io") }
 }
@@ -27,7 +27,7 @@ dependencies {
     modImplementation("net.fabricmc:fabric-language-kotlin:${property("fabric_kotlin_version")}")
     modImplementation("net.fabricmc.fabric-api:fabric-api:${property("fabric_api_version")}")
 
-    listOf("base", "chunk").forEach{
+    listOf("base", "entity", "chunk").forEach{
         modImplementation("dev.onyxstudios.cardinal-components-api:cardinal-components-$it:${property("cardinal_components_version")}")
         include("dev.onyxstudios.cardinal-components-api:cardinal-components-$it:${property("cardinal_components_version")}")
     }

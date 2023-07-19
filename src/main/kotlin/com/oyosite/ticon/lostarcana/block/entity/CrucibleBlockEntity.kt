@@ -3,6 +3,7 @@ package com.oyosite.ticon.lostarcana.block.entity
 import com.oyosite.ticon.lostarcana.LostArcana
 import com.oyosite.ticon.lostarcana.aspect.AspectRegistry
 import com.oyosite.ticon.lostarcana.block.BlockRegistry
+import com.oyosite.ticon.lostarcana.component.LostArcanaComponentEntrypoint
 import com.oyosite.ticon.lostarcana.fluid.EssentiaFluid
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorageUtil
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant
@@ -14,6 +15,7 @@ import net.minecraft.block.Block
 import net.minecraft.block.BlockState
 import net.minecraft.block.Blocks
 import net.minecraft.block.entity.BlockEntity
+import net.minecraft.entity.ItemEntity
 import net.minecraft.fluid.Fluids
 import net.minecraft.nbt.NbtCompound
 import net.minecraft.network.listener.ClientPlayPacketListener
@@ -22,7 +24,9 @@ import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket
 import net.minecraft.particle.ParticleTypes
 import net.minecraft.sound.SoundCategory
 import net.minecraft.sound.SoundEvents
+import net.minecraft.util.TypeFilter
 import net.minecraft.util.math.BlockPos
+import net.minecraft.util.math.Box
 import net.minecraft.util.math.Direction
 import net.minecraft.world.World
 import kotlin.time.times
@@ -71,10 +75,12 @@ class CrucibleBlockEntity(pos: BlockPos, state: BlockState): BlockEntity(LostArc
             }
         }
     }
+    val box = Box(pos.x + 1/8.0, pos.y + 1/8.0, pos.z + 7/8.0, pos.x + 7/8.0, pos.y + 7/8.0, pos.z + 1/8.0)
 
     companion object{
         val HEAT_BLOCKS = mutableMapOf<Block, Int>(Blocks.TORCH to 2, Blocks.SOUL_TORCH to 4, Blocks.CAMPFIRE to 3, Blocks.SOUL_CAMPFIRE to 6, Blocks.LAVA to 5, BlockRegistry.NITOR to 8)
         fun getHeat(block: BlockState): Int = HEAT_BLOCKS[block.block]?:0
+
 
         fun tick(world: World, pos: BlockPos, state: BlockState, be: CrucibleBlockEntity){
             if(world.time%5==0L)be.heat=(be.heat * 0.9).toInt() + getHeat(world.getBlockState(pos.down()))
@@ -83,6 +89,9 @@ class CrucibleBlockEntity(pos: BlockPos, state: BlockState): BlockEntity(LostArc
             if(be.dissolveBubbleTime>0) {
 
                 be.dissolveBubbleTime--
+            }
+            if(world.time%20==0L){
+                world.getEntitiesByType(TypeFilter.instanceOf(ItemEntity::class.java), be.box){LostArcanaComponentEntrypoint.CRAFTING_RESULT_MARKER.getNullable(it)?.flag!=true}
             }
         }
 

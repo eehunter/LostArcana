@@ -35,11 +35,22 @@
         "adapter": "kotlin",
         "value": "com.oyosite.ticon.lostarcana.LostArcanaClient"
       }
+    ],
+    "cardinal-components": [
+      {
+        "adapter": "kotlin",
+        "value": "com.oyosite.ticon.lostarcana.component.LostArcanaComponentEntrypoint"
+      }
     ]
   },
   "mixins": [
     "lostarcana.mixins.json"
   ],
+  "custom": {
+    "cardinal-components": [
+      "lostarcana:craft_result"
+    ]
+  },
 
   "depends": {
     "fabricloader": ">=${loader_version}",
