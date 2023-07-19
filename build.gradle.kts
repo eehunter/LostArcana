@@ -17,6 +17,8 @@ repositories {
     maven { setUrl("https://maven.ladysnake.org/releases");name = "Ladysnake Mods" }
     maven { setUrl("https://maven.jamieswhiteshirt.com/libs-release"); content { includeGroup("com.jamieswhiteshirt") }}
     maven { setUrl("https://jitpack.io") }
+    maven { setUrl("https://maven.shedaniel.me/") }
+    maven { setUrl("https://maven.terraformersmc.com/releases/") }
 }
 
 dependencies {
@@ -35,6 +37,10 @@ dependencies {
     modImplementation("com.github.apace100:calio:v${property("calio_version")}")
 
     modImplementation("com.jamieswhiteshirt:reach-entity-attributes:${property("reach_version")}")
+
+    modApi("me.shedaniel.cloth:cloth-config-fabric:${property("cloth_config_version")}") {
+        exclude("net.fabricmc.fabric-api")
+    }
 
     //modImplementation("dev.onyxstudios.cardinal-components-api:cardinal-components-base:${property("cardinal_components_version")}")
     //modImplementation("dev.onyxstudios.cardinal-components-api:cardinal-components-chunk:${property("cardinal_components_version")}")

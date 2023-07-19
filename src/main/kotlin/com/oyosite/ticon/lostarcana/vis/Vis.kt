@@ -1,3 +1,5 @@
 package com.oyosite.ticon.lostarcana.vis
 
-const val MAX_CHUNK_VIS = 100
+import com.oyosite.ticon.lostarcana.LostArcana
+
+val MAX_CHUNK_VIS get() = LostArcana.COMMON_CONFIG.maxVisInChunk
