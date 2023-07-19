@@ -43,6 +43,8 @@ class NitorBlock: Block(FabricBlockSettings.create().luminance(15).collidable(fa
         //    pos.x+.5, pos.y+.5, pos.z+.5, 1, 0.0, 0.0, 0.0, 0.1)
     }
 
+
+
     override fun randomDisplayTick(state: BlockState, world: World, pos: BlockPos, random: Random) {
         val color = DyeColor.byId(state[COLOR]).mapColor.color
         val r = (color shr 16 and 255)/256f

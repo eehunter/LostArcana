@@ -78,7 +78,7 @@ class CrucibleBlockEntity(pos: BlockPos, state: BlockState): BlockEntity(LostArc
 
         fun tick(world: World, pos: BlockPos, state: BlockState, be: CrucibleBlockEntity){
             if(world.time%5==0L)be.heat=(be.heat * 0.9).toInt() + getHeat(world.getBlockState(pos.down()))
-            world.playSound(null, pos, SoundEvents.BLOCK_BUBBLE_COLUMN_BUBBLE_POP, SoundCategory.BLOCKS)
+            if(be.isHeated)world.playSound(null, pos, SoundEvents.BLOCK_BUBBLE_COLUMN_BUBBLE_POP, SoundCategory.BLOCKS)
             if(be.dissolveBubbleTime>5)world.playSound(null, pos, SoundEvents.BLOCK_BUBBLE_COLUMN_UPWARDS_INSIDE, SoundCategory.BLOCKS)
             if(be.dissolveBubbleTime>0) {
 

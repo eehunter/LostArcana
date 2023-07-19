@@ -10,6 +10,7 @@ object DataGenEntrypoint: DataGeneratorEntrypoint {
         pack.addProvider(::ArcanaModelGenerator)
         pack.addProvider(::ArcanaEnglishLangProvider)
         pack.addProvider(::ArcanaRecipeGen)
+        pack.addProvider(::ArcanaLootTableGen)
     }
 
 }

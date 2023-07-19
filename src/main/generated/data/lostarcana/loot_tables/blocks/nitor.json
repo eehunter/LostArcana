@@ -1,0 +1,228 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "conditions": [
+                {
+                  "block": "lostarcana:nitor",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "color": "0"
+                  }
+                }
+              ],
+              "function": "minecraft:set_nbt",
+              "tag": "{nitor:{color:\"white\"}}"
+            },
+            {
+              "conditions": [
+                {
+                  "block": "lostarcana:nitor",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "color": "1"
+                  }
+                }
+              ],
+              "function": "minecraft:set_nbt",
+              "tag": "{nitor:{color:\"orange\"}}"
+            },
+            {
+              "conditions": [
+                {
+                  "block": "lostarcana:nitor",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "color": "2"
+                  }
+                }
+              ],
+              "function": "minecraft:set_nbt",
+              "tag": "{nitor:{color:\"magenta\"}}"
+            },
+            {
+              "conditions": [
+                {
+                  "block": "lostarcana:nitor",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "color": "3"
+                  }
+                }
+              ],
+              "function": "minecraft:set_nbt",
+              "tag": "{nitor:{color:\"light_blue\"}}"
+            },
+            {
+              "conditions": [
+                {
+                  "block": "lostarcana:nitor",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "color": "4"
+                  }
+                }
+              ],
+              "function": "minecraft:set_nbt",
+              "tag": "{nitor:{color:\"yellow\"}}"
+            },
+            {
+              "conditions": [
+                {
+                  "block": "lostarcana:nitor",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "color": "5"
+                  }
+                }
+              ],
+              "function": "minecraft:set_nbt",
+              "tag": "{nitor:{color:\"lime\"}}"
+            },
+            {
+              "conditions": [
+                {
+                  "block": "lostarcana:nitor",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "color": "6"
+                  }
+                }
+              ],
+              "function": "minecraft:set_nbt",
+              "tag": "{nitor:{color:\"pink\"}}"
+            },
+            {
+              "conditions": [
+                {
+                  "block": "lostarcana:nitor",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "color": "7"
+                  }
+                }
+              ],
+              "function": "minecraft:set_nbt",
+              "tag": "{nitor:{color:\"gray\"}}"
+            },
+            {
+              "conditions": [
+                {
+                  "block": "lostarcana:nitor",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "color": "8"
+                  }
+                }
+              ],
+              "function": "minecraft:set_nbt",
+              "tag": "{nitor:{color:\"light_gray\"}}"
+            },
+            {
+              "conditions": [
+                {
+                  "block": "lostarcana:nitor",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "color": "9"
+                  }
+                }
+              ],
+              "function": "minecraft:set_nbt",
+              "tag": "{nitor:{color:\"cyan\"}}"
+            },
+            {
+              "conditions": [
+                {
+                  "block": "lostarcana:nitor",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "color": "10"
+                  }
+                }
+              ],
+              "function": "minecraft:set_nbt",
+              "tag": "{nitor:{color:\"purple\"}}"
+            },
+            {
+              "conditions": [
+                {
+                  "block": "lostarcana:nitor",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "color": "11"
+                  }
+                }
+              ],
+              "function": "minecraft:set_nbt",
+              "tag": "{nitor:{color:\"blue\"}}"
+            },
+            {
+              "conditions": [
+                {
+                  "block": "lostarcana:nitor",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "color": "12"
+                  }
+                }
+              ],
+              "function": "minecraft:set_nbt",
+              "tag": "{nitor:{color:\"brown\"}}"
+            },
+            {
+              "conditions": [
+                {
+                  "block": "lostarcana:nitor",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "color": "13"
+                  }
+                }
+              ],
+              "function": "minecraft:set_nbt",
+              "tag": "{nitor:{color:\"green\"}}"
+            },
+            {
+              "conditions": [
+                {
+                  "block": "lostarcana:nitor",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "color": "14"
+                  }
+                }
+              ],
+              "function": "minecraft:set_nbt",
+              "tag": "{nitor:{color:\"red\"}}"
+            },
+            {
+              "conditions": [
+                {
+                  "block": "lostarcana:nitor",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "color": "15"
+                  }
+                }
+              ],
+              "function": "minecraft:set_nbt",
+              "tag": "{nitor:{color:\"black\"}}"
+            },
+            {
+              "function": "minecraft:explosion_decay"
+            }
+          ],
+          "name": "lostarcana:nitor"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ]
+}
