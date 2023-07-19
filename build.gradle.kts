@@ -42,6 +42,8 @@ dependencies {
         exclude("net.fabricmc.fabric-api")
     }
 
+    modApi("com.terraformersmc:modmenu:${property("modmenu_version")}")
+
     //modImplementation("dev.onyxstudios.cardinal-components-api:cardinal-components-base:${property("cardinal_components_version")}")
     //modImplementation("dev.onyxstudios.cardinal-components-api:cardinal-components-chunk:${property("cardinal_components_version")}")
 

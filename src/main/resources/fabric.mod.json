@@ -41,6 +41,12 @@
         "adapter": "kotlin",
         "value": "com.oyosite.ticon.lostarcana.component.LostArcanaComponentEntrypoint"
       }
+    ],
+    "modmenu": [
+      {
+        "adapter": "kotlin",
+        "value": "com.oyosite.ticon.lostarcana.client.ModMenuEntrypoint"
+      }
     ]
   },
   "mixins": [
@@ -48,7 +54,8 @@
   ],
   "custom": {
     "cardinal-components": [
-      "lostarcana:craft_result"
+      "lostarcana:crafting_result_marker",
+      "lostarcana:chunk_vis"
     ]
   },
 

@@ -7,7 +7,7 @@ import me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.CollapsibleObject
 
 @Config(name = "${LostArcana.MODID}_client")
 class ClientConfig : ConfigData{
-    @CollapsibleObject
+    @CollapsibleObject(startExpanded = true)
     val thaumometer = ThaumometerUIConfig
 
 }

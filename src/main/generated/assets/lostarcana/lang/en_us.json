@@ -44,5 +44,9 @@
   "nitor.color.purple": "Purple",
   "nitor.color.red": "Red",
   "nitor.color.white": "White",
-  "nitor.color.yellow": "Yellow"
+  "nitor.color.yellow": "Yellow",
+  "text.autoconfig.lostarcana.option.clientConfig.thaumometer": "Thaumometer Options",
+  "text.autoconfig.lostarcana.option.clientConfig.thaumometer.thaumometerGuageAnchor": "Thaumometer Guage Anchor",
+  "text.autoconfig.lostarcana.option.clientConfig.thaumometer.thaumometerGuageX": "Thaumometer Guage X",
+  "text.autoconfig.lostarcana.option.clientConfig.thaumometer.thaumometerGuageY": "Thaumometer Guage Y"
 }
