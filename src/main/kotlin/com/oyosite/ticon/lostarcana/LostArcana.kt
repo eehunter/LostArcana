@@ -17,6 +17,7 @@ import me.shedaniel.autoconfig.serializer.Toml4jConfigSerializer
 import net.fabricmc.api.ModInitializer
 import net.fabricmc.fabric.api.`object`.builder.v1.block.entity.FabricBlockEntityTypeBuilder
 import net.minecraft.block.entity.BlockEntityType
+import net.minecraft.entity.attribute.ClampedEntityAttribute
 import net.minecraft.registry.Registries
 import net.minecraft.registry.Registry
 import net.minecraft.resource.featuretoggle.FeatureFlags
@@ -42,6 +43,8 @@ object LostArcana : ModInitializer {
     val CLIENT_CONFIG get() = CONFIG.clientConfig
     val COMMON_CONFIG get() = CONFIG.commonConfig
 
+    val AURA_VISION = ClampedEntityAttribute("attribute.name.generic.$MODID.aura_vision", 0.0, 0.0, 1.0).setTracked(true)
+
     override fun onInitialize(){
         //println("ItemRegistry class: ${ItemRegistry.clazz.name}")
         AspectRegistry
@@ -54,6 +57,7 @@ object LostArcana : ModInitializer {
         Registry.register(Registries.RECIPE_SERIALIZER, id("nitor_dye"), NitorDyeRecipe.Serializer)
         //Registry.register(Registries.RECIPE_TYPE, id("structure_transformation"), StructureTransformationRecipe.Type)
         AutoConfig.register(LostArcanaConfig::class.java, PartitioningSerializer.wrap(::JanksonConfigSerializer))
+        Registry.register(Registries.ATTRIBUTE, id("aura_vision"), AURA_VISION)
     }
 
     fun id(id: String) = Identifier(if(id.contains(":")) id else "$MODID:$id")

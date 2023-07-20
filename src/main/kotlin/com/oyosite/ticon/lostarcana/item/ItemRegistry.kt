@@ -37,6 +37,7 @@ object ItemRegistry : AutoRegistry<Item>(Item::class.java, Registries.ITEM){
 
     val SALIS_MUNDIS = SalisMundisItem()
     val VIS_CRYSTAL = VisCrystalItem()
+    val THAUMOMETER = ThaumometerItem()
 
 
 

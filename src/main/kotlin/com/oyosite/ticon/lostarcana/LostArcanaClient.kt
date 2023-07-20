@@ -4,12 +4,14 @@ import com.oyosite.ticon.lostarcana.block.BlockRegistry
 import com.oyosite.ticon.lostarcana.block.NitorBlock.Companion.COLOR
 import com.oyosite.ticon.lostarcana.client.ArcaneWorkbenchScreen
 import com.oyosite.ticon.lostarcana.client.blockentity.CrucibleBlockEntityRenderer
+import com.oyosite.ticon.lostarcana.client.onHudRender
 import com.oyosite.ticon.lostarcana.item.ItemRegistry
 import net.fabricmc.api.ClientModInitializer
 import net.fabricmc.api.EnvType
 import net.fabricmc.api.Environment
 import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry
+import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback
 import net.minecraft.block.BlockState
 import net.minecraft.block.MapColor.*
 import net.minecraft.client.gui.screen.ingame.HandledScreens
@@ -29,6 +31,9 @@ object LostArcanaClient: ClientModInitializer {
         BlockEntityRendererFactories.register(LostArcana.CRUCIBLE_BLOCK_ENTITY){cber = CrucibleBlockEntityRenderer(it); cber}
         //BlockEntityrenderer
         //BlockEntityRendererRegistry.register(LostArcana.CRUCIBLE_BLOCK_ENTITY, ::CrucibleBlockEntityRenderer)
+
+
+        HudRenderCallback.EVENT.register(::onHudRender)
     }
 
     private fun getVisColorTint(stack: ItemStack, tintIndex: Int): Int{

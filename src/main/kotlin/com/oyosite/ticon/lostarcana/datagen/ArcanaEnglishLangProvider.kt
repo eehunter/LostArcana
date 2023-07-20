@@ -16,6 +16,7 @@ class ArcanaEnglishLangProvider(generator: FabricDataOutput): FabricLanguageProv
         tb.add(BlockRegistry.NITOR, "Nitor")
         tb.add(ItemRegistry.SALIS_MUNDIS, "Salis Mundis")
         tb.add(ItemRegistry.VIS_CRYSTAL, "Vis Crystal")
+        tb.add(ItemRegistry.THAUMOMETER, "Thaumometer")
         AspectRegistry.ASPECTS.values.forEach(tb::add)
         DyeColor.values().forEach { tb.add("nitor.color.${it.name.lowercase()}", it.name.lowercase().capitalize()) }
         tb.add("itemGroup.lostarcana.items", "Lost Arcana Items")
@@ -23,7 +24,7 @@ class ArcanaEnglishLangProvider(generator: FabricDataOutput): FabricLanguageProv
         tb.add("text.autoconfig.lostarcana.option.clientConfig.thaumometer", "Thaumometer Options")
 
         ThaumometerUIConfig::class.declaredMemberProperties.forEach{
-            val name = it.name.split(Regex("(?<=[a-z])(?=[A-Z])")).map(String::capitalize).joinToString(" ")
+            val name = it.name.split(Regex("(?<=[a-z])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])")).map(String::capitalize).joinToString(" ")
             println(name)
             tb.add("text.autoconfig.lostarcana.option.clientConfig.thaumometer.${it.name}", name)
         }
