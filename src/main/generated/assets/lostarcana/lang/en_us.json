@@ -27,6 +27,7 @@
   "block.lostarcana.crucible": "Crucible",
   "block.lostarcana.nitor": "Nitor",
   "item.lostarcana.salis_mundis": "Salis Mundis",
+  "item.lostarcana.thaumometer": "Thaumometer",
   "item.lostarcana.vis_crystal": "Vis Crystal",
   "itemGroup.lostarcana.items": "Lost Arcana Items",
   "nitor.color.black": "Black",
@@ -46,6 +47,7 @@
   "nitor.color.white": "White",
   "nitor.color.yellow": "Yellow",
   "text.autoconfig.lostarcana.option.clientConfig.thaumometer": "Thaumometer Options",
+  "text.autoconfig.lostarcana.option.clientConfig.thaumometer.technical": "Technical",
   "text.autoconfig.lostarcana.option.clientConfig.thaumometer.thaumometerGuageAnchor": "Thaumometer Guage Anchor",
   "text.autoconfig.lostarcana.option.clientConfig.thaumometer.thaumometerGuageX": "Thaumometer Guage X",
   "text.autoconfig.lostarcana.option.clientConfig.thaumometer.thaumometerGuageY": "Thaumometer Guage Y"

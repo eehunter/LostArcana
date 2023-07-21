@@ -6,3 +6,4 @@ import net.minecraft.item.ItemStack
 
 fun Int.testCrystalInSlot(crystal: ItemStack):Boolean =
     crystal.item is VisCrystalItem && AspectRegistry.ASPECTS.keys.toList()[this].toString() == crystal.getSubNbt("vis")?.getString("aspect")
+

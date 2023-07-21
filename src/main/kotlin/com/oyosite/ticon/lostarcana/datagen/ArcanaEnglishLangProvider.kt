@@ -25,7 +25,6 @@ class ArcanaEnglishLangProvider(generator: FabricDataOutput): FabricLanguageProv
 
         ThaumometerUIConfig::class.declaredMemberProperties.forEach{
             val name = it.name.split(Regex("(?<=[a-z])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])")).map(String::capitalize).joinToString(" ")
-            println(name)
             tb.add("text.autoconfig.lostarcana.option.clientConfig.thaumometer.${it.name}", name)
         }
     }

@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "lostarcana:item/thaumometer_frame",
+    "layer1": "lostarcana:item/thaumometer_lens"
+  }
+}

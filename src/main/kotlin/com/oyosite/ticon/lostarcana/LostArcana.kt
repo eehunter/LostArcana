@@ -5,6 +5,7 @@ import com.oyosite.ticon.lostarcana.block.BlockRegistry
 import com.oyosite.ticon.lostarcana.block.entity.ArcaneWorkbenchBlockEntity
 import com.oyosite.ticon.lostarcana.block.entity.ArcaneWorkbenchScreenHandler
 import com.oyosite.ticon.lostarcana.block.entity.CrucibleBlockEntity
+import com.oyosite.ticon.lostarcana.block.entity.GrowingVisCrystalBlockEntity
 import com.oyosite.ticon.lostarcana.config.LostArcanaConfig
 import com.oyosite.ticon.lostarcana.fluid.EssentiaFluid
 import com.oyosite.ticon.lostarcana.item.ItemRegistry
@@ -36,6 +37,7 @@ object LostArcana : ModInitializer {
     val ARCANE_WORKBENCH_SCREEN_HANDLER: ScreenHandlerType<ArcaneWorkbenchScreenHandler> = Registry.register(Registries.SCREEN_HANDLER, id("arcane_workbench"), ScreenHandlerType<ArcaneWorkbenchScreenHandler>(::ArcaneWorkbenchScreenHandler, FeatureFlags.VANILLA_FEATURES))
 
     val CRUCIBLE_BLOCK_ENTITY: BlockEntityType<CrucibleBlockEntity> = Registry.register(Registries.BLOCK_ENTITY_TYPE, id("crucible"), FabricBlockEntityTypeBuilder.create(::CrucibleBlockEntity).addBlock(BlockRegistry.CRUCIBLE).build())
+    val VIS_CRYSTAL_BLOCK_ENTITY: BlockEntityType<GrowingVisCrystalBlockEntity> = Registry.register(Registries.BLOCK_ENTITY_TYPE, id("growing_vis_crystal"), FabricBlockEntityTypeBuilder.create(::GrowingVisCrystalBlockEntity, BlockRegistry.GROWING_VIS_CRYSTAL).build())
 
     val ESSENTIA = Registry.register(Registries.FLUID, id("essentia"), EssentiaFluid())
 

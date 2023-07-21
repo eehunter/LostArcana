@@ -16,7 +16,7 @@ class ThaumometerItem: Item(FabricItemSettings().maxCount(1)) {
         if(slot in listOf(MAINHAND, OFFHAND)) it.put(LostArcana.AURA_VISION, AURA_VISION_MOD)
     }.build()
 
-    companion object{
+    companion object{//db00ff
         val AURA_VISION_MOD = EntityAttributeModifier("thaumometer_vision", 1.0, EntityAttributeModifier.Operation.ADDITION)
     }
 }

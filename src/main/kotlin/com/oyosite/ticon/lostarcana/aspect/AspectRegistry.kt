@@ -17,6 +17,7 @@ object AspectRegistry: Map<Identifier, Aspect> {
         "ordo"     to 0xd8d6fb,
     ).map{LostArcana.id(it.first) to Aspect(LostArcana.id(it.first), it.second)}.toTypedArray())
 
+    val PRIMAL_ASPECTS = mutableMapOf(*Array(6, ASPECTS.entries.toList()::get).map { it.key to it.value }.toTypedArray())
 
     init{
         A("vacuos", 0x858585, "aer", "perditio")

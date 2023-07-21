@@ -1,0 +1,28 @@
+{
+  "multipart": [
+    {
+      "when": "crystals=1",
+      "model": "lostarcana:block/vis_crystal/vis_crystal_1"
+    },
+    {
+      "when": "crystals=2",
+      "model": "lostarcana:block/vis_crystal/vis_crystal_2"
+    },
+    {
+      "when": "crystals=3",
+      "model": "lostarcana:block/vis_crystal/vis_crystal_3"
+    },
+    {
+      "when": "crystals=4",
+      "model": "lostarcana:block/vis_crystal/vis_crystal_4"
+    },
+    {
+      "when": "crystals=5",
+      "model": "lostarcana:block/vis_crystal/vis_crystal_5"
+    },
+    {
+      "when": "crystals=6",
+      "model": "lostarcana:block/vis_crystal/vis_crystal_6"
+    }
+  ]
+}

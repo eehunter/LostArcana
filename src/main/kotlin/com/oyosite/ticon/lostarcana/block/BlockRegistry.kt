@@ -19,6 +19,8 @@ object BlockRegistry: AutoRegistry<Block>(Block::class.java, Registries.BLOCK, {
 
     val NITOR = NitorBlock()
 
+    val GROWING_VIS_CRYSTAL = GrowingVisCrystalBlock()
+
 
 
     val Block.asItem get() = BLOCK_ITEMS[this]!!

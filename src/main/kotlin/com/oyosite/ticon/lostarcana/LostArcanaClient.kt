@@ -2,8 +2,10 @@ package com.oyosite.ticon.lostarcana
 
 import com.oyosite.ticon.lostarcana.block.BlockRegistry
 import com.oyosite.ticon.lostarcana.block.NitorBlock.Companion.COLOR
+import com.oyosite.ticon.lostarcana.block.entity.GrowingVisCrystalBlockEntity
 import com.oyosite.ticon.lostarcana.client.ArcaneWorkbenchScreen
 import com.oyosite.ticon.lostarcana.client.blockentity.CrucibleBlockEntityRenderer
+import com.oyosite.ticon.lostarcana.client.blockentity.GrowingVisCrystalBlockEntityRenderer
 import com.oyosite.ticon.lostarcana.client.onHudRender
 import com.oyosite.ticon.lostarcana.item.ItemRegistry
 import net.fabricmc.api.ClientModInitializer
@@ -26,11 +28,14 @@ object LostArcanaClient: ClientModInitializer {
     private var cber: CrucibleBlockEntityRenderer? = null
     override fun onInitializeClient() {
         ColorProviderRegistry.ITEM.register(::getVisColorTint, ItemRegistry.VIS_CRYSTAL)
-        ColorProviderRegistry.BLOCK.register(::getNitorColor, BlockRegistry.NITOR)
+        ColorProviderRegistry.ITEM.register(::getThaumometerTint, ItemRegistry.THAUMOMETER)
+        ColorProviderRegistry.ITEM.register(::getNitorColor, BlockRegistry.NITOR)
         HandledScreens.register(LostArcana.ARCANE_WORKBENCH_SCREEN_HANDLER, ::ArcaneWorkbenchScreen)
         BlockEntityRendererFactories.register(LostArcana.CRUCIBLE_BLOCK_ENTITY){cber = CrucibleBlockEntityRenderer(it); cber}
+        BlockEntityRendererFactories.register(LostArcana.VIS_CRYSTAL_BLOCK_ENTITY, ::GrowingVisCrystalBlockEntityRenderer)
         //BlockEntityrenderer
         //BlockEntityRendererRegistry.register(LostArcana.CRUCIBLE_BLOCK_ENTITY, ::CrucibleBlockEntityRenderer)
+
 
 
         HudRenderCallback.EVENT.register(::onHudRender)
@@ -41,5 +46,8 @@ object LostArcanaClient: ClientModInitializer {
         return stack.getSubNbt("vis")?.getInt("color")?:0xFFFFFF
     }
     //val colors = listOf(WHITE, ORANGE, MAGENTA, LIGHT_BLUE, YELLOW, LIME, PINK, GRAY, LIGHT_GRAY, CYAN, PURPLE, BLUE, BROWN, )
-    private fun getNitorColor(state: BlockState, rv: BlockRenderView?, pos: BlockPos?, tintIndex: Int): Int = DyeColor.byId(state[COLOR]).mapColor.color
+    private fun getNitorColor(stack: ItemStack, tintIndex: Int): Int = if(tintIndex==0)stack.getSubNbt("nitor")?.getString("color").let{DyeColor.byName(it, null)}?.mapColor?.color?:0xffffff else 0xffffff
+
+
+    private fun getThaumometerTint(stack: ItemStack, tintIndex: Int) = if(tintIndex==1) 0xdb00ff else 0xffffff
 }
