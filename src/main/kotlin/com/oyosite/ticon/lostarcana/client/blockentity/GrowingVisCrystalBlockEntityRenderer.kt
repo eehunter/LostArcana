@@ -6,12 +6,15 @@ import com.oyosite.ticon.lostarcana.block.entity.GrowingVisCrystalBlockEntity
 import net.fabricmc.fabric.api.renderer.v1.RendererAccess
 import net.fabricmc.fabric.api.renderer.v1.mesh.MutableQuadView
 import net.fabricmc.fabric.api.renderer.v1.model.SpriteFinder
+import net.minecraft.client.MinecraftClient
 import net.minecraft.client.render.RenderLayer
 import net.minecraft.client.render.VertexConsumerProvider
 import net.minecraft.client.render.block.entity.BlockEntityRenderer
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory
 import net.minecraft.client.texture.SpriteAtlasTexture
 import net.minecraft.client.util.math.MatrixStack
+import net.minecraft.screen.PlayerScreenHandler
+import net.minecraft.util.Identifier
 import net.minecraft.util.math.Direction
 import net.minecraft.util.math.Direction.*
 
@@ -28,9 +31,10 @@ class GrowingVisCrystalBlockEntityRenderer(ctx: BlockEntityRendererFactory.Conte
         val renderer = RendererAccess.INSTANCE.renderer?:return
         val crystals = be.crystals//world.getBlockState(be.pos)[GrowingVisCrystalBlock.CRYSTALS]
         val vc = vertexConsumers.getBuffer(RenderLayer.getSolid())
-        val topSprite = SpriteFinder.get(crystalSpriteAtlasTexture).find(0f, 0f)
-        val sprite = SpriteFinder.get(crystalSpriteAtlasTexture).find(0f,1/3f)
-        
+        val atlas = MinecraftClient.getInstance().bakedModelManager.getAtlas(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE)
+        val topSprite = atlas.getSprite(Identifier("block/white_concrete"))//LostArcana.id("block/growing_vis_crystal"))//SpriteFinder.get(at).//find(0f, 0f)
+        val sprite = atlas.getSprite(Identifier("block/white_concrete"))//LostArcana.id("block/growing_vis_crystal"))//SpriteFinder.get(crystalSpriteAtlasTexture).find(0f,1/3f)
+
         val color = be.color
         val r = (color shr 16 and 255) / 256f
         val g = (color shr 8 and 255) / 256f
@@ -60,6 +64,8 @@ class GrowingVisCrystalBlockEntityRenderer(ctx: BlockEntityRendererFactory.Conte
 
                 //emitter.color(be.color, be.color, be.color, be.color)
                 emitter.spriteBake(sprite, MutableQuadView.BAKE_LOCK_UV)
+                emitter.color(color, color, color, color)
+                //emitter.spriteColor(0, -1, -1, -1, -1)
                 vc.quad(matrices.peek(), emitter.toBakedQuad(if(dir == UP)topSprite else sprite), r/256f, g/256f, b/256f, light, overlay)
             }
 
