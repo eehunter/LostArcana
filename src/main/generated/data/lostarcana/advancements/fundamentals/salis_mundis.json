@@ -1,0 +1,39 @@
+{
+  "parent": "lostarcana:fundamentals/root",
+  "criteria": {
+    "got_salis_mundis": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "lostarcana:salis_mundis"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "background": "minecraft:textures/gui/advancements/backgrounds/adventure.png",
+    "description": {
+      "translate": "advancement.lostarcana.fundamentals.root.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "lostarcana:vis_crystal"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.lostarcana.fundamentals.root"
+    }
+  },
+  "requirements": [
+    [
+      "got_salis_mundis"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

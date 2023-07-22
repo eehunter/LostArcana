@@ -11,6 +11,7 @@ import com.oyosite.ticon.lostarcana.fluid.EssentiaFluid
 import com.oyosite.ticon.lostarcana.item.ItemRegistry
 import com.oyosite.ticon.lostarcana.recipe.AlchemyRecipe
 import com.oyosite.ticon.lostarcana.recipe.NitorDyeRecipe
+import com.oyosite.ticon.lostarcana.recipe.UniqueVisCrystalRecipe
 import me.shedaniel.autoconfig.AutoConfig
 import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer
 import me.shedaniel.autoconfig.serializer.PartitioningSerializer
@@ -21,6 +22,8 @@ import net.minecraft.block.entity.BlockEntityType
 import net.minecraft.entity.attribute.ClampedEntityAttribute
 import net.minecraft.registry.Registries
 import net.minecraft.registry.Registry
+import net.minecraft.registry.RegistryKeys
+import net.minecraft.registry.tag.TagKey
 import net.minecraft.resource.featuretoggle.FeatureFlags
 import net.minecraft.screen.ScreenHandlerType
 import net.minecraft.util.Identifier
@@ -47,6 +50,8 @@ object LostArcana : ModInitializer {
 
     val AURA_VISION = ClampedEntityAttribute("attribute.name.generic.$MODID.aura_vision", 0.0, 0.0, 1.0).setTracked(true)
 
+    val VALID_CRYSTAL_GROWTH_BASES = TagKey.of(RegistryKeys.BLOCK, id("valid_crystal_growth_bases"))
+
     override fun onInitialize(){
         //println("ItemRegistry class: ${ItemRegistry.clazz.name}")
         AspectRegistry
@@ -57,6 +62,7 @@ object LostArcana : ModInitializer {
         Registry.register(Registries.RECIPE_SERIALIZER, id("alchemy"), AlchemyRecipe.Serializer)
         //Registry.register(Registries.RECIPE_TYPE, id("nitor_dye"), NitorDyeRecipe.Type)
         Registry.register(Registries.RECIPE_SERIALIZER, id("nitor_dye"), NitorDyeRecipe.Serializer)
+        Registry.register(Registries.RECIPE_SERIALIZER, id("unique_vis_crystal_recipe"), UniqueVisCrystalRecipe.Serializer)
         //Registry.register(Registries.RECIPE_TYPE, id("structure_transformation"), StructureTransformationRecipe.Type)
         AutoConfig.register(LostArcanaConfig::class.java, PartitioningSerializer.wrap(::JanksonConfigSerializer))
         Registry.register(Registries.ATTRIBUTE, id("aura_vision"), AURA_VISION)

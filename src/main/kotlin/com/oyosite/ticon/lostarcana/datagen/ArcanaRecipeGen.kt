@@ -13,10 +13,13 @@ import com.oyosite.ticon.lostarcana.recipe.NitorDyeRecipe
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider
 import net.minecraft.data.server.recipe.RecipeJsonProvider
+import net.minecraft.data.server.recipe.ShapelessRecipeJsonBuilder
 import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
 import net.minecraft.recipe.Ingredient
 import net.minecraft.recipe.RecipeSerializer
+import net.minecraft.recipe.book.CraftingRecipeCategory
+import net.minecraft.recipe.book.RecipeCategory
 import net.minecraft.registry.Registries
 import net.minecraft.util.DyeColor
 import net.minecraft.util.Identifier
@@ -26,7 +29,7 @@ class ArcanaRecipeGen(generator: FabricDataOutput): FabricRecipeProvider(generat
     override fun generate(exporter: Consumer<RecipeJsonProvider>) = G(exporter).gen{
         +AlchemyRecipe(LostArcana.id("nitor"), Ingredient.ofItems(Items.GLOWSTONE_DUST), mapOf(EssentiaFluid["lux"]!! to 5*810L), {true}, ItemStack(BlockRegistry.NITOR).apply{setSubNbt("nitor", DyeColor.YELLOW.toNbt)})
         +NitorDyeRecipeProvider()
-
+        UniqueVisCrystalRecipeJsonBuilder(RecipeCategory.MISC, ItemRegistry.SALIS_MUNDIS).catalyst(Items.BOWL).criterion(hasItem(ItemRegistry.VIS_CRYSTAL), conditionsFromItem(ItemRegistry.VIS_CRYSTAL)).input(ItemRegistry.VIS_CRYSTAL, 3).input(Items.REDSTONE).input(Items.FLINT).offerTo(exporter)
 
 
     }

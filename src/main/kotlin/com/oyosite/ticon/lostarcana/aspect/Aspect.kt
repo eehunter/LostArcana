@@ -1,5 +1,6 @@
 package com.oyosite.ticon.lostarcana.aspect
 
+import com.oyosite.ticon.lostarcana.block.BlockRegistry
 import com.oyosite.ticon.lostarcana.item.ItemRegistry
 import net.minecraft.item.ItemStack
 import net.minecraft.text.Text
@@ -10,6 +11,14 @@ data class Aspect(val id: Identifier, val color: Int, val components: Pair<Aspec
 
     val crystal: ItemStack get() {
         val otpt = ItemStack(ItemRegistry.VIS_CRYSTAL)
+        val vis = otpt.getOrCreateSubNbt("vis")
+        vis.putInt("color", color)
+        vis.putString("aspect", id.toString())
+        return otpt
+    }
+
+    val growing_crystal: ItemStack get() {
+        val otpt = ItemStack(BlockRegistry.GROWING_VIS_CRYSTAL)
         val vis = otpt.getOrCreateSubNbt("vis")
         vis.putInt("color", color)
         vis.putString("aspect", id.toString())

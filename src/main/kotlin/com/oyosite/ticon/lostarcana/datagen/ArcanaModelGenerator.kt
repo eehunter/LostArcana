@@ -35,14 +35,15 @@ class ArcanaModelGenerator(generator: FabricDataOutput): FabricModelProvider(gen
     override fun generateItemModels(img: ItemModelGenerator) {
         img.register(ItemRegistry.SALIS_MUNDIS, Models.GENERATED)
         img.register(ItemRegistry.VIS_CRYSTAL, Models.GENERATED)
+        img.register(BlockRegistry.GROWING_VIS_CRYSTAL, Models.GENERATED)
         img.register(ItemRegistry.THAUMOMETER, Models.GENERATED_TWO_LAYERS, "_frame", "_lens")
-        img.register(BlockRegistry.NITOR, Models.GENERATED_TWO_LAYERS, "_flame", "_core")
+        img.register(BlockRegistry.NITOR, Models.GENERATED_TWO_LAYERS, "_flame", "_dot")
     }
 
     companion object{
         val TEXTURE_LAYERS = listOf(TextureKey.LAYER0, TextureKey.LAYER1, TextureKey.LAYER2)
     }
-    fun ItemModelGenerator.register(item: ItemConvertible, model: Model, vararg suffixes: String){
+    fun ItemModelGenerator.register(item: ItemConvertible, model: Model, vararg suffixes: String = arrayOf("")){
         if(suffixes.size !in 1..3) throw IllegalArgumentException("Item model needs between 1 and 3 layers, inclusively.")
         val textureMap = TextureMap().apply{
             suffixes.forEachIndexed { index, s -> put(TEXTURE_LAYERS[index], TextureMap.getSubId(item.asItem(), s))

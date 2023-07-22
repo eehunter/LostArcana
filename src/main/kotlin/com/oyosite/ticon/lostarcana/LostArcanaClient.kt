@@ -13,11 +13,13 @@ import net.fabricmc.api.EnvType
 import net.fabricmc.api.Environment
 import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry
+import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback
 import net.minecraft.block.BlockState
 import net.minecraft.block.MapColor.*
 import net.minecraft.client.gui.screen.ingame.HandledScreens
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories
+import net.minecraft.client.render.entity.model.EntityModelLayer
 import net.minecraft.item.ItemStack
 import net.minecraft.util.DyeColor
 import net.minecraft.util.math.BlockPos
@@ -26,8 +28,11 @@ import net.minecraft.world.BlockRenderView
 @Environment(EnvType.CLIENT)
 object LostArcanaClient: ClientModInitializer {
     private var cber: CrucibleBlockEntityRenderer? = null
+
+    val visCrystalEntityModelLayer = EntityModelLayer(LostArcana.id("vis_crystal"), "main")
+
     override fun onInitializeClient() {
-        ColorProviderRegistry.ITEM.register(::getVisColorTint, ItemRegistry.VIS_CRYSTAL)
+        ColorProviderRegistry.ITEM.register(::getVisColorTint, ItemRegistry.VIS_CRYSTAL, BlockRegistry.GROWING_VIS_CRYSTAL)
         ColorProviderRegistry.ITEM.register(::getThaumometerTint, ItemRegistry.THAUMOMETER)
         ColorProviderRegistry.ITEM.register(::getNitorColor, BlockRegistry.NITOR)
         HandledScreens.register(LostArcana.ARCANE_WORKBENCH_SCREEN_HANDLER, ::ArcaneWorkbenchScreen)
@@ -39,6 +44,7 @@ object LostArcanaClient: ClientModInitializer {
 
 
         HudRenderCallback.EVENT.register(::onHudRender)
+        EntityModelLayerRegistry.registerModelLayer(visCrystalEntityModelLayer) { GrowingVisCrystalBlockEntityRenderer.texturedModelData }
     }
 
     private fun getVisColorTint(stack: ItemStack, tintIndex: Int): Int{

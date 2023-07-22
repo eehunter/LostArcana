@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "lostarcana:item/nitor_flame",
+    "layer1": "lostarcana:item/nitor_dot"
+  }
+}

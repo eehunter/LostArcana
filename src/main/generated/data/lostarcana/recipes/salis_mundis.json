@@ -1,0 +1,32 @@
+{
+  "type": "lostarcana:unique_vis_crystal_recipe",
+  "category": "misc",
+  "doNotConsume": [
+    {
+      "item": "minecraft:bowl"
+    }
+  ],
+  "ingredients": [
+    {
+      "item": "minecraft:bowl"
+    },
+    {
+      "item": "lostarcana:vis_crystal"
+    },
+    {
+      "item": "lostarcana:vis_crystal"
+    },
+    {
+      "item": "lostarcana:vis_crystal"
+    },
+    {
+      "item": "minecraft:redstone"
+    },
+    {
+      "item": "minecraft:flint"
+    }
+  ],
+  "result": {
+    "item": "lostarcana:salis_mundis"
+  }
+}

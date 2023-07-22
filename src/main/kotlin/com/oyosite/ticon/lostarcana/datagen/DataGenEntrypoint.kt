@@ -11,6 +11,8 @@ object DataGenEntrypoint: DataGeneratorEntrypoint {
         pack.addProvider(::ArcanaEnglishLangProvider)
         pack.addProvider(::ArcanaRecipeGen)
         pack.addProvider(::ArcanaLootTableGen)
+        pack.addProvider(::ArcanaAdvancementProvider)
+        pack.addProvider(::ArcanaBlockTagProvider)
     }
 
 }

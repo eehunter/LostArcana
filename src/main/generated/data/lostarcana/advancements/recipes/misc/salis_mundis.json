@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "lostarcana:salis_mundis"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_vis_crystal": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "lostarcana:vis_crystal"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_vis_crystal",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "lostarcana:salis_mundis"
+    ]
+  },
+  "sends_telemetry_event": false
+}

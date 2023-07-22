@@ -16,6 +16,7 @@ class ArcanaEnglishLangProvider(generator: FabricDataOutput): FabricLanguageProv
         tb.add(BlockRegistry.NITOR, "Nitor")
         tb.add(ItemRegistry.SALIS_MUNDIS, "Salis Mundis")
         tb.add(ItemRegistry.VIS_CRYSTAL, "Vis Crystal")
+        tb.add(BlockRegistry.GROWING_VIS_CRYSTAL, "Vis Crystal Seed")
         tb.add(ItemRegistry.THAUMOMETER, "Thaumometer")
         AspectRegistry.ASPECTS.values.forEach(tb::add)
         DyeColor.values().forEach { tb.add("nitor.color.${it.name.lowercase()}", it.name.lowercase().capitalize()) }

@@ -1,0 +1,38 @@
+{
+  "criteria": {
+    "got_vis_crystal": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "lostarcana:vis_crystal"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "background": "minecraft:textures/gui/advancements/backgrounds/adventure.png",
+    "description": {
+      "translate": "advancement.lostarcana.root.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "lostarcana:vis_crystal"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.lostarcana.root"
+    }
+  },
+  "requirements": [
+    [
+      "got_vis_crystal"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

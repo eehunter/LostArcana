@@ -32,6 +32,7 @@ object ItemRegistry : AutoRegistry<Item>(Item::class.java, Registries.ITEM){
 
             ).map{ if(it is ItemConvertible) ItemStack(it) else if(it is ItemStack) it else throw IllegalArgumentException("Non ItemConvertible or ItemStack cannot be added to ItemGroup.")})
             entries.addAll(DyeColor.values().map { ItemStack(BlockRegistry.NITOR, 1).apply{ setSubNbt("nitor", it.toNbt) } })
+            entries.addAll(AspectRegistry.PRIMAL_ASPECTS.values.map(Aspect::growing_crystal))
             entries.addAll(AspectRegistry.ASPECTS.values.map(Aspect::crystal))
         }.build())
 
