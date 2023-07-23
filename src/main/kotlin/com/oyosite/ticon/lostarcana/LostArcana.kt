@@ -12,23 +12,36 @@ import com.oyosite.ticon.lostarcana.item.ItemRegistry
 import com.oyosite.ticon.lostarcana.recipe.AlchemyRecipe
 import com.oyosite.ticon.lostarcana.recipe.NitorDyeRecipe
 import com.oyosite.ticon.lostarcana.recipe.UniqueVisCrystalRecipe
+import com.oyosite.ticon.lostarcana.world.VisCrystalFeature
+import com.oyosite.ticon.lostarcana.world.VisCrystalFeatureConfig
 import me.shedaniel.autoconfig.AutoConfig
 import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer
 import me.shedaniel.autoconfig.serializer.PartitioningSerializer
 import me.shedaniel.autoconfig.serializer.Toml4jConfigSerializer
 import net.fabricmc.api.ModInitializer
+import net.fabricmc.fabric.api.biome.v1.BiomeModifications
+import net.fabricmc.fabric.api.biome.v1.BiomeSelectors
+import net.fabricmc.fabric.api.event.registry.DynamicRegistrySetupCallback
 import net.fabricmc.fabric.api.`object`.builder.v1.block.entity.FabricBlockEntityTypeBuilder
 import net.minecraft.block.entity.BlockEntityType
 import net.minecraft.entity.attribute.ClampedEntityAttribute
-import net.minecraft.registry.Registries
-import net.minecraft.registry.Registry
-import net.minecraft.registry.RegistryKeys
+import net.minecraft.registry.*
+import net.minecraft.registry.entry.RegistryEntry
 import net.minecraft.registry.tag.TagKey
 import net.minecraft.resource.featuretoggle.FeatureFlags
 import net.minecraft.screen.ScreenHandlerType
 import net.minecraft.util.Identifier
+import net.minecraft.util.math.intprovider.UniformIntProvider
+import net.minecraft.world.gen.GenerationStep
+import net.minecraft.world.gen.feature.ConfiguredFeature
+import net.minecraft.world.gen.feature.ConfiguredFeatures
+import net.minecraft.world.gen.feature.DefaultFeatureConfig
+import net.minecraft.world.gen.feature.PlacedFeature
+import net.minecraft.world.gen.placementmodifier.CountPlacementModifier
+import net.minecraft.world.gen.placementmodifier.SquarePlacementModifier
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
+import kotlin.jvm.optionals.getOrNull
 
 object LostArcana : ModInitializer {
     const val MODID = "lostarcana"
@@ -52,6 +65,11 @@ object LostArcana : ModInitializer {
 
     val VALID_CRYSTAL_GROWTH_BASES = TagKey.of(RegistryKeys.BLOCK, id("valid_crystal_growth_bases"))
 
+    val VIS_CRYSTAL_FEATURE_ID = id("vis_crystal_feature")
+    val VIS_CRYSTAL_FEATURE = VisCrystalFeature()
+    val CONFIGURED_VIS_CRYSTAL_FEATURE = ConfiguredFeature(VIS_CRYSTAL_FEATURE, DefaultFeatureConfig.INSTANCE)
+    val PLACED_VIS_CRYSTAL_FEATURE = PlacedFeature(RegistryEntry.of(CONFIGURED_VIS_CRYSTAL_FEATURE), listOf(CountPlacementModifier.of(UniformIntProvider.create(10, 20)), SquarePlacementModifier.of()))
+
     override fun onInitialize(){
         //println("ItemRegistry class: ${ItemRegistry.clazz.name}")
         AspectRegistry
@@ -66,6 +84,15 @@ object LostArcana : ModInitializer {
         //Registry.register(Registries.RECIPE_TYPE, id("structure_transformation"), StructureTransformationRecipe.Type)
         AutoConfig.register(LostArcanaConfig::class.java, PartitioningSerializer.wrap(::JanksonConfigSerializer))
         Registry.register(Registries.ATTRIBUTE, id("aura_vision"), AURA_VISION)
+
+        Registry.register(Registries.FEATURE, VIS_CRYSTAL_FEATURE_ID, VIS_CRYSTAL_FEATURE)
+        DynamicRegistrySetupCallback.EVENT.register{
+
+            it.getOptional(RegistryKeys.CONFIGURED_FEATURE).getOrNull()?.also { Registry.register(it, VIS_CRYSTAL_FEATURE_ID, CONFIGURED_VIS_CRYSTAL_FEATURE); println("Registered Configured Feature") }
+            it.getOptional(RegistryKeys.PLACED_FEATURE).getOrNull()?.also { Registry.register(it, VIS_CRYSTAL_FEATURE_ID, PLACED_VIS_CRYSTAL_FEATURE); println("Registered Placed Feature") }
+        }
+        BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.UNDERGROUND_DECORATION, RegistryKey.of(RegistryKeys.PLACED_FEATURE, VIS_CRYSTAL_FEATURE_ID))
+        //Registry.register(RegistryKeys.CONFIGURED_FEATURE, VIS_CRYSTAL_FEATURE_ID, CONFIGURED_VIS_CRYSTAL_FEATURE)
     }
 
     fun id(id: String) = Identifier(if(id.contains(":")) id else "$MODID:$id")

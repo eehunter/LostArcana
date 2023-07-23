@@ -10,7 +10,7 @@ import java.util.concurrent.CompletableFuture
 class ArcanaBlockTagProvider(output: FabricDataOutput, registriesFuture: CompletableFuture<RegistryWrapper.WrapperLookup>
 ) : BlockTagProvider(output, registriesFuture) {
     override fun configure(arg: RegistryWrapper.WrapperLookup) {
-        getOrCreateTagBuilder(LostArcana.VALID_CRYSTAL_GROWTH_BASES).addTag(BlockTags.BASE_STONE_OVERWORLD).addTag(BlockTags.STONE_BRICKS)
+        getOrCreateTagBuilder(LostArcana.VALID_CRYSTAL_GROWTH_BASES).addOptionalTag(BlockTags.BASE_STONE_OVERWORLD).addOptionalTag(BlockTags.STONE_BRICKS).addOptionalTag(BlockTags.DEEPSLATE_ORE_REPLACEABLES)
 
     }
 }

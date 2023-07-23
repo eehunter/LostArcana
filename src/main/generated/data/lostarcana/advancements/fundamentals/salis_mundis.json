@@ -18,7 +18,7 @@
     "announce_to_chat": true,
     "background": "minecraft:textures/gui/advancements/backgrounds/adventure.png",
     "description": {
-      "translate": "advancement.lostarcana.fundamentals.root.desc"
+      "translate": "advancement.lostarcana.fundamentals.salis_mundis.desc"
     },
     "frame": "task",
     "hidden": false,
@@ -27,7 +27,7 @@
     },
     "show_toast": true,
     "title": {
-      "translate": "advancement.lostarcana.fundamentals.root"
+      "translate": "advancement.lostarcana.fundamentals.salis_mundis"
     }
   },
   "requirements": [
