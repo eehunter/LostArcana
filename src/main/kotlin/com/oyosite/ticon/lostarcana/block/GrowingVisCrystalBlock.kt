@@ -14,6 +14,7 @@ import net.minecraft.block.BlockWithEntity
 import net.minecraft.block.ShapeContext
 import net.minecraft.block.Waterloggable
 import net.minecraft.block.entity.BlockEntity
+import net.minecraft.client.item.TooltipContext
 import net.minecraft.entity.LivingEntity
 import net.minecraft.fluid.FluidState
 import net.minecraft.fluid.Fluids
@@ -24,6 +25,9 @@ import net.minecraft.server.world.ServerWorld
 import net.minecraft.state.StateManager
 import net.minecraft.state.property.IntProperty
 import net.minecraft.state.property.Properties
+import net.minecraft.text.Style
+import net.minecraft.text.Text
+import net.minecraft.text.TextColor
 import net.minecraft.util.ItemScatterer
 import net.minecraft.util.collection.DefaultedList
 import net.minecraft.util.math.BlockPos
@@ -39,7 +43,11 @@ import net.minecraft.world.WorldView
 import kotlin.jvm.optionals.getOrElse
 import kotlin.jvm.optionals.getOrNull
 
-class GrowingVisCrystalBlock: BlockWithEntity(FabricBlockSettings.create().collidable(false).nonOpaque().offset(visCrystalOffsetter)), Waterloggable {
+class GrowingVisCrystalBlock: BlockWithEntity(FabricBlockSettings.create().collidable(false).nonOpaque().offset(visCrystalOffsetter).ticksRandomly()), Waterloggable {
+
+    init {
+        defaultState = defaultState.with(CRYSTALS, 1).with(WATERLOGGED, false)
+    }
 
     val shape = createCuboidShape(2.0, 0.0, 2.0, 14.0, 6.0, 14.0)
 
@@ -93,6 +101,7 @@ class GrowingVisCrystalBlock: BlockWithEntity(FabricBlockSettings.create().colli
         super.randomTick(state, world, pos, random)
         if(random.nextDouble() > 0.05)return
         val vis = LostArcanaComponentEntrypoint.CHUNK_VIS[world.getChunk(pos)]
+        if(random.nextDouble() > 0.005 * state[CRYSTALS])vis.vis+=1
         if(!(vis.vis >= vis.visCap || (vis.vis > 0 && random.nextDouble() > 0.5)))return
         if(state[CRYSTALS]<6 && random.nextDouble() < 0.5){
             vis.vis-=1
@@ -105,7 +114,7 @@ class GrowingVisCrystalBlock: BlockWithEntity(FabricBlockSettings.create().colli
                     if (!world.getBlockState(tPos).isReplaceable) continue
                     if (BlockRegistry.GROWING_VIS_CRYSTAL.defaultState.canPlaceAt(world, tPos)) {
                         vis.vis -= 1
-                        world.setBlockState(pos, state.with(CRYSTALS, 1).with(WATERLOGGED, world.getFluidState(tPos).fluid == Fluids.WATER))
+                        world.setBlockState(tPos, state.with(CRYSTALS, 1).with(WATERLOGGED, world.getFluidState(tPos).fluid == Fluids.WATER))
                         world.getBlockEntity(tPos, LostArcana.VIS_CRYSTAL_BLOCK_ENTITY).getOrNull()?.run{
                             world.getBlockEntity(pos, LostArcana.VIS_CRYSTAL_BLOCK_ENTITY).getOrNull()?.let{aspect = it.aspect}
                         }
@@ -170,5 +179,18 @@ class GrowingVisCrystalBlock: BlockWithEntity(FabricBlockSettings.create().colli
             Vec3d(x, y, z)
         }
 
+    }
+
+    override fun appendTooltip(
+        stack: ItemStack,
+        world: BlockView?,
+        tooltip: MutableList<Text>,
+        options: TooltipContext
+    ) {
+        stack.getSubNbt("vis")?.getString("aspect")?.also{
+            AspectRegistry.ASPECTS[LostArcana.id(it)]?.name?.also(tooltip::add)
+            if(!AspectRegistry.PRIMAL_ASPECTS.containsKey(LostArcana.id(it)))tooltip.add(Text.translatable("tooltip.lostarcana.growing_vis_crystal.creative_only").styled { s -> s.withColor(0xFF0000) })
+        }
+        super.appendTooltip(stack, world, tooltip, options)
     }
 }

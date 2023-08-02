@@ -22,6 +22,11 @@ class SalisMundisItem: Item(FabricItemSettings()) {
                 if(!context.player!!.isCreative)context.stack.decrement(1)
                 return ActionResult.SUCCESS
             }
+            if (world.getBlockState(pos) == Blocks.CAULDRON.defaultState){
+                world.setBlockState(pos, BlockRegistry.CRUCIBLE.defaultState)
+                if(!context.player!!.isCreative)context.stack.decrement(1)
+                return ActionResult.SUCCESS
+            }
         }
         return super.useOnBlock(context)
     }

@@ -10,6 +10,7 @@ import com.oyosite.ticon.lostarcana.config.LostArcanaConfig
 import com.oyosite.ticon.lostarcana.fluid.EssentiaFluid
 import com.oyosite.ticon.lostarcana.item.ItemRegistry
 import com.oyosite.ticon.lostarcana.recipe.AlchemyRecipe
+import com.oyosite.ticon.lostarcana.recipe.ArcaneWorkbenchRecipe
 import com.oyosite.ticon.lostarcana.recipe.NitorDyeRecipe
 import com.oyosite.ticon.lostarcana.recipe.UniqueVisCrystalRecipe
 import com.oyosite.ticon.lostarcana.world.VisCrystalFeature
@@ -78,6 +79,9 @@ object LostArcana : ModInitializer {
         //AlchemyRecipe.Type
         Registry.register(Registries.RECIPE_TYPE, id("alchemy"), AlchemyRecipe.Type)
         Registry.register(Registries.RECIPE_SERIALIZER, id("alchemy"), AlchemyRecipe.Serializer)
+
+        Registry.register(Registries.RECIPE_TYPE, id("arcane_workbench"), ArcaneWorkbenchRecipe.Type)
+        Registry.register(Registries.RECIPE_SERIALIZER, id("arcane_workbench"), ArcaneWorkbenchRecipe.Serializer)
         //Registry.register(Registries.RECIPE_TYPE, id("nitor_dye"), NitorDyeRecipe.Type)
         Registry.register(Registries.RECIPE_SERIALIZER, id("nitor_dye"), NitorDyeRecipe.Serializer)
         Registry.register(Registries.RECIPE_SERIALIZER, id("unique_vis_crystal_recipe"), UniqueVisCrystalRecipe.Serializer)

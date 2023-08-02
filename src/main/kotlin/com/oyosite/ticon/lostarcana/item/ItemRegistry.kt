@@ -29,7 +29,9 @@ object ItemRegistry : AutoRegistry<Item>(Item::class.java, Registries.ITEM){
         .displayName(Text.translatable("itemGroup.lostarcana.items")).entries { displayContext, entries ->
             entries.addAll(listOf<Any>(
                 BlockRegistry.ARCANE_WORKBENCH,
-
+                BlockRegistry.CRUCIBLE,
+                SALIS_MUNDIS,
+                THAUMOMETER,
             ).map{ if(it is ItemConvertible) ItemStack(it) else if(it is ItemStack) it else throw IllegalArgumentException("Non ItemConvertible or ItemStack cannot be added to ItemGroup.")})
             entries.addAll(DyeColor.values().map { ItemStack(BlockRegistry.NITOR, 1).apply{ setSubNbt("nitor", it.toNbt) } })
             entries.addAll(AspectRegistry.PRIMAL_ASPECTS.values.map(Aspect::growing_crystal))

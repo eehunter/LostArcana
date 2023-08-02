@@ -8,6 +8,7 @@ import net.minecraft.item.ItemStack
 import net.minecraft.registry.Registries
 import net.minecraft.util.Identifier
 
+@Deprecated("Use the ItemStack.essentia extension val instead.")
 object ItemAspectRegistry: Map<Identifier, List<Pair<Aspect,Int>>> {
     private val ASPECTS = mutableMapOf<String, List<Pair<Aspect,Int>>>()
     override fun get(key: Identifier): List<Pair<Aspect,Int>>? = ASPECTS[key.toString()]

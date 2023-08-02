@@ -13,6 +13,7 @@ object DataGenEntrypoint: DataGeneratorEntrypoint {
         pack.addProvider(::ArcanaLootTableGen)
         pack.addProvider(::ArcanaAdvancementProvider)
         pack.addProvider(::ArcanaBlockTagProvider)
+        pack.addProvider(::ArcanaItemTagProvider)
     }
 
 }

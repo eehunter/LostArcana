@@ -17,6 +17,7 @@ import net.minecraft.nbt.NbtCompound
 import net.minecraft.recipe.RecipeMatcher
 import net.minecraft.screen.NamedScreenHandlerFactory
 import net.minecraft.screen.ScreenHandler
+import net.minecraft.screen.ScreenHandlerContext
 import net.minecraft.text.Text
 import net.minecraft.util.collection.DefaultedList
 import net.minecraft.util.math.BlockPos
@@ -24,8 +25,10 @@ import net.minecraft.util.math.BlockPos
 
 class ArcaneWorkbenchBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(LostArcana.ARCANE_WORKBENCH_BLOCK_ENTITY, pos, state), RecipeInputInventory, NamedScreenHandlerFactory {
     private val items = DefaultedList.ofSize(15, ItemStack.EMPTY)
-    var craftingInventory: CraftingInventory? = null
+    val inventory = ArcaneWorkbenchInventory(this)
+    //var craftingInventory: CraftingInventory? = null
     var craftingResultInventory: CraftingResultInventory? = null
+    var contextPlayer: PlayerEntity? = null
 
 
     override fun clear() = items.clear()
@@ -45,12 +48,13 @@ class ArcaneWorkbenchBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity
     override fun removeStack(slot: Int, count: Int): ItemStack {
         val result = Inventories.splitStack(items, slot, count)
         if (!result.isEmpty) markDirty()
-        if(slot in 0..8)craftingInventory?.setStack(slot, getStack(slot))
+        //if(slot in 0..8)craftingInventory?.setStack(slot, getStack(slot))
         return result
     }
 
     override fun removeStack(slot: Int): ItemStack {
-        return Inventories.removeStack(items, slot).also { if(slot in 0..8) craftingInventory?.setStack(slot, getStack(slot)) }
+        markDirty()
+        return Inventories.removeStack(items, slot)//.also { if(slot in 0..8) craftingInventory?.setStack(slot, getStack(slot)) }
     }
 
     override fun setStack(slot: Int, stack: ItemStack) {
@@ -58,7 +62,14 @@ class ArcaneWorkbenchBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity
         if (stack.count > stack.maxCount) {
             stack.count = stack.maxCount
         }
-        if(slot in 0..8) craftingInventory?.setStack(slot, stack)
+        markDirty()
+        //if(slot in 0..8) craftingInventory?.setStack(slot, stack)
+    }
+
+
+    override fun markDirty() {
+        super.markDirty()
+
     }
 
     override fun canPlayerUse(player: PlayerEntity?): Boolean = true
@@ -73,28 +84,34 @@ class ArcaneWorkbenchBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity
         return true
     }
 
-    override fun provideRecipeInputs(finder: RecipeMatcher) = items.forEach(finder::addInput)
+    override fun provideRecipeInputs(finder: RecipeMatcher) = items.subList(0,9).forEach(finder::addInput)
 
 
     override fun getWidth(): Int = 3
 
     override fun getHeight(): Int = 3
 
-    override fun getInputStacks(): MutableList<ItemStack> = items.toMutableList()
+    override fun getInputStacks(): MutableList<ItemStack> = items.subList(0,9)
 
-    fun syncCraftingInventory(){
+    /*fun syncCraftingInventory(){
         for(i in 0..8)craftingInventory?.setStack(i, getStack(i))
-    }
+    }*/
 
     override fun readNbt(nbt: NbtCompound) {
+
         Inventories.readNbt(nbt, items)
+        inventory.readNbt(nbt)
     }
 
     override fun writeNbt(nbt: NbtCompound) {
         Inventories.writeNbt(nbt, items)
+        inventory.writeNbt(nbt)
     }
 
-    override fun createMenu(syncId: Int, playerInventory: PlayerInventory, player: PlayerEntity): ScreenHandler = ArcaneWorkbenchScreenHandler(syncId, playerInventory, this)
+    override fun createMenu(syncId: Int, playerInventory: PlayerInventory, player: PlayerEntity): ScreenHandler = ArcaneWorkbenchScreenHandler(syncId, playerInventory, inventory.wrap(playerInventory.player), ScreenHandlerContext.create(world, pos))
 
     override fun getDisplayName(): Text = Text.translatable(cachedState.block.translationKey)
+
+
+
 }

@@ -21,6 +21,7 @@ class ArcanaEnglishLangProvider(generator: FabricDataOutput): FabricLanguageProv
         AspectRegistry.ASPECTS.values.forEach(tb::add)
         DyeColor.values().forEach { tb.add("nitor.color.${it.name.lowercase()}", it.name.lowercase().capitalize()) }
         tb.add("itemGroup.lostarcana.items", "Lost Arcana Items")
+        tb.add("tooltip.lostarcana.growing_vis_crystal.creative_only", "Not available in survival.")
 
         tb.add("text.autoconfig.lostarcana.option.clientConfig.thaumometer", "Thaumometer Options")
 

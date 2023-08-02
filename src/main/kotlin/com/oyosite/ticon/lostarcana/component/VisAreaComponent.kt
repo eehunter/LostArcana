@@ -9,4 +9,6 @@ interface VisAreaComponent: ComponentV3 {
     var vis: Int
     var flux: Int
     val visPressure: Int get() = vis+flux/2-visCap
+
+    fun markDirty()
 }

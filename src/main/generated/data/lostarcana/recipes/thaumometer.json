@@ -1,0 +1,33 @@
+{
+  "type": "lostarcana:arcane_workbench",
+  "auraCost": 5,
+  "base": {
+    "type": "minecraft:crafting_shaped",
+    "category": "equipment",
+    "key": {
+      "G": {
+        "tag": "c:gold_ingots"
+      },
+      "P": {
+        "tag": "c:glass_panes"
+      }
+    },
+    "pattern": [
+      " G ",
+      "GPG",
+      " G "
+    ],
+    "result": {
+      "item": "lostarcana:thaumometer"
+    },
+    "show_notification": true
+  },
+  "visCost": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+  ]
+}

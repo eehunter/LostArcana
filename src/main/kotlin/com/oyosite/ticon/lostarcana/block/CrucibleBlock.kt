@@ -1,15 +1,13 @@
 package com.oyosite.ticon.lostarcana.block
 
 import com.oyosite.ticon.lostarcana.LostArcana
-import com.oyosite.ticon.lostarcana.aspect.ItemAspectRegistry
+import com.oyosite.ticon.lostarcana.aspect.essentia
 import com.oyosite.ticon.lostarcana.block.entity.CrucibleBlockEntity
 import com.oyosite.ticon.lostarcana.component.LostArcanaComponentEntrypoint
 import com.oyosite.ticon.lostarcana.fluid.EssentiaFluid
-import com.oyosite.ticon.lostarcana.mixin.MinecraftClientAccessor
 import com.oyosite.ticon.lostarcana.recipe.AlchemyRecipe
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap
 import net.fabricmc.fabric.api.`object`.builder.v1.block.FabricBlockSettings
-import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorageUtil
 import net.minecraft.block.*
@@ -17,7 +15,6 @@ import net.minecraft.block.cauldron.CauldronBehavior
 import net.minecraft.block.entity.BlockEntity
 import net.minecraft.block.entity.BlockEntityTicker
 import net.minecraft.block.entity.BlockEntityType
-import net.minecraft.client.MinecraftClient
 import net.minecraft.entity.ItemEntity
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.fluid.Fluid
@@ -126,9 +123,9 @@ open class CrucibleBlock: AbstractCauldronBlock(FabricBlockSettings.create(), CR
             var dissolved = false
             //println(stack)
             //println(ItemAspectRegistry[stack])
-            ItemAspectRegistry[stack]?.forEach{ aspect ->
-                EssentiaFluid.VARIANTS[aspect.first.id.toString()]?.also {
-                    be.essentiaContent[it] = (be.essentiaContent[it]?:0L) + aspect.second.toLong()
+            stack.essentia.forEach{ aspect ->
+                EssentiaFluid.VARIANTS[aspect.key.id.toString()]?.also {
+                    be.essentiaContent[it] = (be.essentiaContent[it]?:0L) + aspect.value
                     dissolved = true
                 }
             }

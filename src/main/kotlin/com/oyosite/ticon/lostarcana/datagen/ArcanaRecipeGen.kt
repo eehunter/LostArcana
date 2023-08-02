@@ -5,6 +5,7 @@ import com.oyosite.ticon.lostarcana.LostArcana
 import com.oyosite.ticon.lostarcana.aspect.AspectRegistry
 import com.oyosite.ticon.lostarcana.block.BlockRegistry
 import com.oyosite.ticon.lostarcana.data.LostArcanaDataTypes
+import com.oyosite.ticon.lostarcana.datagen.recipeproviders.ArcaneWorkbenchRecipeProvider
 import com.oyosite.ticon.lostarcana.fluid.EssentiaFluid
 import com.oyosite.ticon.lostarcana.item.ItemRegistry
 import com.oyosite.ticon.lostarcana.item.ItemRegistry.toNbt
@@ -12,8 +13,8 @@ import com.oyosite.ticon.lostarcana.recipe.AlchemyRecipe
 import com.oyosite.ticon.lostarcana.recipe.NitorDyeRecipe
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider
-import net.minecraft.data.server.recipe.RecipeJsonProvider
-import net.minecraft.data.server.recipe.ShapelessRecipeJsonBuilder
+import net.minecraft.data.server.recipe.*
+import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
 import net.minecraft.recipe.Ingredient
@@ -21,16 +22,27 @@ import net.minecraft.recipe.RecipeSerializer
 import net.minecraft.recipe.book.CraftingRecipeCategory
 import net.minecraft.recipe.book.RecipeCategory
 import net.minecraft.registry.Registries
+import net.minecraft.registry.RegistryKeys
+import net.minecraft.registry.tag.TagKey
 import net.minecraft.util.DyeColor
 import net.minecraft.util.Identifier
 import java.util.function.Consumer
 
 class ArcanaRecipeGen(generator: FabricDataOutput): FabricRecipeProvider(generator) {
+
     override fun generate(exporter: Consumer<RecipeJsonProvider>) = G(exporter).gen{
         +AlchemyRecipe(LostArcana.id("nitor"), Ingredient.ofItems(Items.GLOWSTONE_DUST), mapOf(EssentiaFluid["lux"]!! to 5*810L), {true}, ItemStack(BlockRegistry.NITOR).apply{setSubNbt("nitor", DyeColor.YELLOW.toNbt)})
         +NitorDyeRecipeProvider()
         UniqueVisCrystalRecipeJsonBuilder(RecipeCategory.MISC, ItemRegistry.SALIS_MUNDIS).catalyst(Items.BOWL).criterion(hasItem(ItemRegistry.VIS_CRYSTAL), conditionsFromItem(ItemRegistry.VIS_CRYSTAL)).input(ItemRegistry.VIS_CRYSTAL, 3).input(Items.REDSTONE).input(Items.FLINT).offerTo(exporter)
-
+        +ArcaneWorkbenchRecipeProvider(
+            LostArcana.id("thaumometer"),
+            ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, ItemRegistry.THAUMOMETER).pattern(" G ").pattern("GPG").pattern(" G ").input('G', GOLD_INGOTS).input('P', GLASS_PANES)
+                .criterion(hasItem(Items.GOLD_INGOT), conditionsFromItem(Items.GOLD_INGOT))
+                .criterion(hasItem(Items.GLASS_PANE), conditionsFromTag(GLASS_PANES))
+                .criterion(hasItem(ItemRegistry.VIS_CRYSTAL), conditionsFromItem(ItemRegistry.VIS_CRYSTAL)).build(),
+            Array(6){1},
+            5
+        )
 
     }
 
@@ -39,8 +51,23 @@ class ArcanaRecipeGen(generator: FabricDataOutput): FabricRecipeProvider(generat
         operator fun AlchemyRecipe.unaryPlus(){
             exporter.accept(AlchemyRecipeProvider(this))
         }
+
         operator fun RecipeJsonProvider.unaryPlus() = exporter.accept(this)
 
+        fun ((Consumer<RecipeJsonProvider>)->Unit).build(): RecipeJsonProvider {
+            var otpt: RecipeJsonProvider? = null
+            this{otpt = it}
+            return otpt!!
+        }
+
+        fun ShapedRecipeJsonBuilder.build(): RecipeJsonProvider{
+            val b: (Consumer<RecipeJsonProvider>)->Unit = this::offerTo
+            return b.build()
+        }
+        fun ShapelessRecipeJsonBuilder.build(): RecipeJsonProvider{
+            val b: (Consumer<RecipeJsonProvider>)->Unit = this::offerTo
+            return b.build()
+        }
 
     }
 
