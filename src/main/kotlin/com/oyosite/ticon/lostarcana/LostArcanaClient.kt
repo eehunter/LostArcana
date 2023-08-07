@@ -6,6 +6,7 @@ import com.oyosite.ticon.lostarcana.block.entity.GrowingVisCrystalBlockEntity
 import com.oyosite.ticon.lostarcana.client.ArcaneWorkbenchScreen
 import com.oyosite.ticon.lostarcana.client.blockentity.CrucibleBlockEntityRenderer
 import com.oyosite.ticon.lostarcana.client.blockentity.GrowingVisCrystalBlockEntityRenderer
+import com.oyosite.ticon.lostarcana.client.blockentity.RunicMatrixBlockEntityRenderer
 import com.oyosite.ticon.lostarcana.client.onHudRender
 import com.oyosite.ticon.lostarcana.item.ItemRegistry
 import net.fabricmc.api.ClientModInitializer
@@ -30,6 +31,7 @@ object LostArcanaClient: ClientModInitializer {
     private var cber: CrucibleBlockEntityRenderer? = null
 
     val visCrystalEntityModelLayer = EntityModelLayer(LostArcana.id("vis_crystal"), "main")
+    val runicMatrixEntityModelLayer = EntityModelLayer(LostArcana.id("runic_matrix"), "main")
 
     override fun onInitializeClient() {
         ColorProviderRegistry.ITEM.register(::getVisColorTint, ItemRegistry.VIS_CRYSTAL, BlockRegistry.GROWING_VIS_CRYSTAL)
@@ -38,6 +40,7 @@ object LostArcanaClient: ClientModInitializer {
         HandledScreens.register(LostArcana.ARCANE_WORKBENCH_SCREEN_HANDLER, ::ArcaneWorkbenchScreen)
         BlockEntityRendererFactories.register(LostArcana.CRUCIBLE_BLOCK_ENTITY){cber = CrucibleBlockEntityRenderer(it); cber}
         BlockEntityRendererFactories.register(LostArcana.VIS_CRYSTAL_BLOCK_ENTITY, ::GrowingVisCrystalBlockEntityRenderer)
+        BlockEntityRendererFactories.register(LostArcana.RUNIC_MATRIX_BLOCK_ENTITY, ::RunicMatrixBlockEntityRenderer)
         //BlockEntityrenderer
         //BlockEntityRendererRegistry.register(LostArcana.CRUCIBLE_BLOCK_ENTITY, ::CrucibleBlockEntityRenderer)
 
@@ -45,6 +48,7 @@ object LostArcanaClient: ClientModInitializer {
 
         HudRenderCallback.EVENT.register(::onHudRender)
         EntityModelLayerRegistry.registerModelLayer(visCrystalEntityModelLayer) { GrowingVisCrystalBlockEntityRenderer.texturedModelData }
+        EntityModelLayerRegistry.registerModelLayer(runicMatrixEntityModelLayer) { RunicMatrixBlockEntityRenderer.texturedModelData }
     }
 
     private fun getVisColorTint(stack: ItemStack, tintIndex: Int): Int{

@@ -19,6 +19,8 @@ repositories {
     maven { setUrl("https://jitpack.io") }
     maven { setUrl("https://maven.shedaniel.me/") }
     maven { setUrl("https://maven.terraformersmc.com/releases/") }
+    maven { setUrl("https://maven.blamejared.com") }
+    maven { setUrl("https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/");name = "GeckoLib" }
 }
 
 dependencies {
@@ -43,6 +45,10 @@ dependencies {
     }
 
     modApi("com.terraformersmc:modmenu:${property("modmenu_version")}")
+
+    modImplementation("vazkii.patchouli:Patchouli:${property("patchouli_version")}")
+
+    modImplementation("software.bernie.geckolib:geckolib-fabric-1.20:4.2")
 
     //modImplementation("dev.onyxstudios.cardinal-components-api:cardinal-components-base:${property("cardinal_components_version")}")
     //modImplementation("dev.onyxstudios.cardinal-components-api:cardinal-components-chunk:${property("cardinal_components_version")}")

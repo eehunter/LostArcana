@@ -12,19 +12,31 @@ import net.minecraft.world.chunk.WorldChunk
 import kotlin.random.Random
 
 class VisChunkImpl(val chunk: Chunk): VisAreaComponent, AutoSyncedComponent, ServerTickingComponent {
-    private var baseVisCap: Int = Random(hashCode()).nextInt(MAX_CHUNK_VIS/5, MAX_CHUNK_VIS/2)
+    var baseVisCap: Int = Random(hashCode()).nextInt(MAX_CHUNK_VIS/5, MAX_CHUNK_VIS/2)
     //private var loaded = false
 
     override val visCap: Int
         get() = baseVisCap
-    private var visImpl: Int = baseVisCap
-    private var fluxImpl: Int = 0
+    var visImpl: Int = baseVisCap
+        set(value) {field=value
+            try{
+                if(chunk.pos.x == 0 && chunk.pos.z == 0)println("Set vis to $value")
+            }catch (_: NullPointerException){}
+        }
+    var fluxImpl: Int = 0
     override var vis: Int
         get() = visImpl
         set(value) {visImpl=value; updateFlux(); println("Set vis to $value") }
     override var flux: Int
         get() = fluxImpl
         set(value) {fluxImpl=value; updateFlux()}
+
+
+    init{
+        try{
+            if(chunk.pos.x == 0 && chunk.pos.z == 0)println("Initializing chunk component for chunk 0, 0.")
+        }catch (_: NullPointerException){}
+    }
 
     override fun equals(other: Any?): Boolean {
         if(other !is VisChunkImpl) return false
@@ -45,18 +57,25 @@ class VisChunkImpl(val chunk: Chunk): VisAreaComponent, AutoSyncedComponent, Ser
         fluxImpl = if(tag.contains("flux"))tag.getInt("flux") else 0
         //loaded = true
         try{
-            if(chunk.pos.x == 0 && chunk.pos.z == 0)println("Vis: $visImpl")
+            if(chunk.pos.x == 0 && chunk.pos.z == 0) {
+                println("Vis: $visImpl")
+                println(super.hashCode())
+            }
         }catch (_: NullPointerException){}
     }
 
     override fun writeToNbt(tag: NbtCompound) {
         //if(!loaded)return
+        tag.putInt("baseVisCap", baseVisCap)
+        tag.putInt("vis", visImpl)
+        tag.putInt("flux", fluxImpl)
         try{
             //if(vis == baseVisCap)return
-            tag.putInt("baseVisCap", baseVisCap)
-            tag.putInt("vis", visImpl)
-            tag.putInt("flux", fluxImpl)
-            if(chunk.pos.x == 0 && chunk.pos.z == 0)println("Writing $tag")
+            chunk.pos.x
+            if(chunk.pos.x == 0 && chunk.pos.z == 0) {
+                println("Writing $tag")
+                println(super.hashCode())
+            }
         }catch (_: NullPointerException){}
     }
 
