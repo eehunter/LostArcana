@@ -53,6 +53,7 @@ object LostArcana : ModInitializer {
     val CRUCIBLE_BLOCK_ENTITY: BlockEntityType<CrucibleBlockEntity> = Registry.register(Registries.BLOCK_ENTITY_TYPE, id("crucible"), FabricBlockEntityTypeBuilder.create(::CrucibleBlockEntity).addBlock(BlockRegistry.CRUCIBLE).build())
     val VIS_CRYSTAL_BLOCK_ENTITY: BlockEntityType<GrowingVisCrystalBlockEntity> = Registry.register(Registries.BLOCK_ENTITY_TYPE, id("growing_vis_crystal"), FabricBlockEntityTypeBuilder.create(::GrowingVisCrystalBlockEntity, BlockRegistry.GROWING_VIS_CRYSTAL).build())
     val RUNIC_MATRIX_BLOCK_ENTITY: BlockEntityType<RunicMatrixBlockEntity> = Registry.register(Registries.BLOCK_ENTITY_TYPE, id("runic_matrix"), FabricBlockEntityTypeBuilder.create(::RunicMatrixBlockEntity, BlockRegistry.RUNIC_MATRIX).build())
+    val ARCANE_PEDESTAL_BLOCK_ENTITY: BlockEntityType<ArcanePedestalBlockEntity> = Registry.register(Registries.BLOCK_ENTITY_TYPE, id("arcane_pedestal"), FabricBlockEntityTypeBuilder.create(::ArcanePedestalBlockEntity, BlockRegistry.ARCANE_PEDESTAL).build())
 
     val ESSENTIA = Registry.register(Registries.FLUID, id("essentia"), EssentiaFluid())
 

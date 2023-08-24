@@ -15,6 +15,9 @@ class ArcanaModelGenerator(generator: FabricDataOutput): FabricModelProvider(gen
     override fun generateBlockStateModels(bmg: BlockStateModelGenerator) {
         bmg.registerSingleton(BlockRegistry.ARCANE_WORKBENCH, arcaneWorkbenchTextureMap, Models.CUBE)
         bmg.registerSingleton(BlockRegistry.CRUCIBLE, crucibleTextureMap, block("cauldron", TextureKey.INSIDE, TextureKey.PARTICLE, TextureKey.TOP, TextureKey.BOTTOM, TextureKey.SIDE) )
+        bmg.registerSimpleCubeAll(BlockRegistry.ARCANE_STONE)
+        bmg.registerSimpleCubeAll(BlockRegistry.ARCANE_STONE_TILES)
+        
     }
 
     val arcaneWorkbenchTextureMap = TextureMap().put(TextureKey.UP, TextureMap.getSubId(BlockRegistry.ARCANE_WORKBENCH, "_top"))
@@ -30,7 +33,7 @@ class ArcanaModelGenerator(generator: FabricDataOutput): FabricModelProvider(gen
         .put(TextureKey.INSIDE, TextureMap.getSubId(BlockRegistry.CRUCIBLE, "_inner"))
 
 
-    private fun block(parent: String, vararg requiredTextureKeys: TextureKey): Model = Model(Optional.of(Identifier("minecraft", "block/$parent")), Optional.empty(), *requiredTextureKeys)
+    private fun block(parent: String, vararg requiredTextureKeys: TextureKey): Model = Model(Optional.of(Identifier(parent).withPrefixedPath("block/")), Optional.empty(), *requiredTextureKeys)
 
     override fun generateItemModels(img: ItemModelGenerator) {
         img.register(ItemRegistry.SALIS_MUNDIS, Models.GENERATED)

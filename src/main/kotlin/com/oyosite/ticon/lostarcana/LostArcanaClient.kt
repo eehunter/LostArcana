@@ -4,6 +4,7 @@ import com.oyosite.ticon.lostarcana.block.BlockRegistry
 import com.oyosite.ticon.lostarcana.block.NitorBlock.Companion.COLOR
 import com.oyosite.ticon.lostarcana.block.entity.GrowingVisCrystalBlockEntity
 import com.oyosite.ticon.lostarcana.client.ArcaneWorkbenchScreen
+import com.oyosite.ticon.lostarcana.client.blockentity.ArcanePedestalBlockEntityRenderer
 import com.oyosite.ticon.lostarcana.client.blockentity.CrucibleBlockEntityRenderer
 import com.oyosite.ticon.lostarcana.client.blockentity.GrowingVisCrystalBlockEntityRenderer
 import com.oyosite.ticon.lostarcana.client.blockentity.RunicMatrixBlockEntityRenderer
@@ -41,6 +42,7 @@ object LostArcanaClient: ClientModInitializer {
         BlockEntityRendererFactories.register(LostArcana.CRUCIBLE_BLOCK_ENTITY){cber = CrucibleBlockEntityRenderer(it); cber}
         BlockEntityRendererFactories.register(LostArcana.VIS_CRYSTAL_BLOCK_ENTITY, ::GrowingVisCrystalBlockEntityRenderer)
         BlockEntityRendererFactories.register(LostArcana.RUNIC_MATRIX_BLOCK_ENTITY, ::RunicMatrixBlockEntityRenderer)
+        BlockEntityRendererFactories.register(LostArcana.ARCANE_PEDESTAL_BLOCK_ENTITY, ::ArcanePedestalBlockEntityRenderer)
         //BlockEntityrenderer
         //BlockEntityRendererRegistry.register(LostArcana.CRUCIBLE_BLOCK_ENTITY, ::CrucibleBlockEntityRenderer)
 

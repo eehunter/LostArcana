@@ -11,3 +11,5 @@ val Vec3d.vec3i get() = Vec3i(x.toInt(),y.toInt(),z.toInt())
 
 operator fun Vec3d.minus(other: Vec3d) = Vec3d(x-other.x, y-other.y, z-other.z)
 operator fun Vec3d.plus(other: Vec3d) = Vec3d(x+other.x, y+other.y, z+other.z)
+
+infix fun Int.`±`(dist: Int) = this-dist .. this+dist

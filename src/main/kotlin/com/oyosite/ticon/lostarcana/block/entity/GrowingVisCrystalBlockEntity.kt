@@ -38,8 +38,8 @@ class GrowingVisCrystalBlockEntity(pos: BlockPos, state: BlockState) : BlockEnti
     }
 
     override fun readNbt(nbt: NbtCompound) {
-        println(LostArcana.id(nbt.getString("aspect")))
-        println(AspectRegistry[LostArcana.id(nbt.getString("aspect"))])
+        //println(LostArcana.id(nbt.getString("aspect")))
+        //println(AspectRegistry[LostArcana.id(nbt.getString("aspect"))])
         aspect = AspectRegistry[LostArcana.id(nbt.getString("aspect"))]?:aspect
     }
 
