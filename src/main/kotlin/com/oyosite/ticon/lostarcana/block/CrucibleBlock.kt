@@ -99,7 +99,7 @@ open class CrucibleBlock: AbstractCauldronBlock(FabricBlockSettings.create(), CR
                 return ActionResult.SUCCESS
             }
 
-            //dissolveItem(state, world, pos, player, hand, player.getStackInHand(hand))
+            return dissolveItem(state, world, pos, player, hand, player.getStackInHand(hand))
 
 
         }

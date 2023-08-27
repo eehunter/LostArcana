@@ -28,6 +28,7 @@ object ItemRegistry : AutoRegistry<Item>(Item::class.java, Registries.ITEM){
     val LOST_ARCANA_ITEMS: ItemGroup = Registry.register(Registries.ITEM_GROUP, LostArcana.id("lostarcana_items"), FabricItemGroup.builder().icon { ItemStack(SALIS_MUNDIS) }
         .displayName(Text.translatable("itemGroup.lostarcana.items")).entries { displayContext, entries ->
             entries.addAll(listOf<Any>(
+                THAUMONOMICON,
                 BlockRegistry.ARCANE_WORKBENCH,
                 BlockRegistry.CRUCIBLE,
                 SALIS_MUNDIS,
@@ -45,6 +46,7 @@ object ItemRegistry : AutoRegistry<Item>(Item::class.java, Registries.ITEM){
     val SALIS_MUNDIS = SalisMundisItem()
     val VIS_CRYSTAL = VisCrystalItem()
     val THAUMOMETER = ThaumometerItem()
+    val THAUMONOMICON = ThaumonomiconItem()
 
 
 

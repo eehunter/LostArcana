@@ -4,10 +4,7 @@ import com.oyosite.ticon.lostarcana.block.BlockRegistry
 import com.oyosite.ticon.lostarcana.block.NitorBlock.Companion.COLOR
 import com.oyosite.ticon.lostarcana.block.entity.GrowingVisCrystalBlockEntity
 import com.oyosite.ticon.lostarcana.client.ArcaneWorkbenchScreen
-import com.oyosite.ticon.lostarcana.client.blockentity.ArcanePedestalBlockEntityRenderer
-import com.oyosite.ticon.lostarcana.client.blockentity.CrucibleBlockEntityRenderer
-import com.oyosite.ticon.lostarcana.client.blockentity.GrowingVisCrystalBlockEntityRenderer
-import com.oyosite.ticon.lostarcana.client.blockentity.RunicMatrixBlockEntityRenderer
+import com.oyosite.ticon.lostarcana.client.blockentity.*
 import com.oyosite.ticon.lostarcana.client.onHudRender
 import com.oyosite.ticon.lostarcana.item.ItemRegistry
 import net.fabricmc.api.ClientModInitializer
@@ -43,6 +40,7 @@ object LostArcanaClient: ClientModInitializer {
         BlockEntityRendererFactories.register(LostArcana.VIS_CRYSTAL_BLOCK_ENTITY, ::GrowingVisCrystalBlockEntityRenderer)
         BlockEntityRendererFactories.register(LostArcana.RUNIC_MATRIX_BLOCK_ENTITY, ::RunicMatrixBlockEntityRenderer)
         BlockEntityRendererFactories.register(LostArcana.ARCANE_PEDESTAL_BLOCK_ENTITY, ::ArcanePedestalBlockEntityRenderer)
+        BlockEntityRendererFactories.register(LostArcana.INFUSION_PILLAR_BLOCK_ENTITY, ::InfusionPillarBlockEntityRenderer)
         //BlockEntityrenderer
         //BlockEntityRendererRegistry.register(LostArcana.CRUCIBLE_BLOCK_ENTITY, ::CrucibleBlockEntityRenderer)
 

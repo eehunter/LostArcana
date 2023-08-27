@@ -17,7 +17,7 @@ class ArcanaModelGenerator(generator: FabricDataOutput): FabricModelProvider(gen
         bmg.registerSingleton(BlockRegistry.CRUCIBLE, crucibleTextureMap, block("cauldron", TextureKey.INSIDE, TextureKey.PARTICLE, TextureKey.TOP, TextureKey.BOTTOM, TextureKey.SIDE) )
         bmg.registerSimpleCubeAll(BlockRegistry.ARCANE_STONE)
         bmg.registerSimpleCubeAll(BlockRegistry.ARCANE_STONE_TILES)
-        
+
     }
 
     val arcaneWorkbenchTextureMap = TextureMap().put(TextureKey.UP, TextureMap.getSubId(BlockRegistry.ARCANE_WORKBENCH, "_top"))
@@ -41,6 +41,7 @@ class ArcanaModelGenerator(generator: FabricDataOutput): FabricModelProvider(gen
         img.register(BlockRegistry.GROWING_VIS_CRYSTAL, Models.GENERATED)
         img.register(ItemRegistry.THAUMOMETER, Models.GENERATED_TWO_LAYERS, "_frame", "_lens")
         img.register(BlockRegistry.NITOR, Models.GENERATED_TWO_LAYERS, "_flame", "_dot")
+        img.register(ItemRegistry.THAUMONOMICON, Models.GENERATED)
     }
 
     companion object{

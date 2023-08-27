@@ -10,6 +10,8 @@ import net.minecraft.item.ItemStack
 import net.minecraft.text.Text
 import net.minecraft.world.World
 
+//Suppress deprecation because I'm too lazy to implement the correct interface manually.
+@Suppress("Deprecation")
 class VisCrystalItem: Item(FabricItemSettings()), EssentiaItem {
     override fun appendTooltip(stack: ItemStack, world: World?, tooltip: MutableList<Text>, context: TooltipContext) {
         stack.getSubNbt("vis")?.getString("aspect")?.also{

@@ -1,6 +1,7 @@
 package com.oyosite.ticon.lostarcana.block.entity
 
 import com.oyosite.ticon.lostarcana.LostArcana
+import com.oyosite.ticon.lostarcana.block.ArcanePedestalBlock
 import com.oyosite.ticon.lostarcana.block.InfusionDataProvider
 import net.minecraft.block.BlockState
 import net.minecraft.block.entity.BlockEntity
@@ -14,9 +15,17 @@ import net.minecraft.network.packet.Packet
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket
 import net.minecraft.util.collection.DefaultedList
 import net.minecraft.util.math.BlockPos
+import software.bernie.geckolib.animatable.GeoBlockEntity
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache
+import software.bernie.geckolib.core.animation.AnimatableManager
+import software.bernie.geckolib.core.animation.AnimationController
+import software.bernie.geckolib.core.animation.AnimationState
+import software.bernie.geckolib.core.animation.RawAnimation
+import software.bernie.geckolib.core.`object`.PlayState
+import software.bernie.geckolib.util.GeckoLibUtil
 import kotlin.math.min
 
-class ArcanePedestalBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(LostArcana.ARCANE_PEDESTAL_BLOCK_ENTITY, pos, state), Inventory, InfusionDataProvider {
+class ArcanePedestalBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(LostArcana.ARCANE_PEDESTAL_BLOCK_ENTITY, pos, state), Inventory, InfusionDataProvider, GeoBlockEntity {
 
     var stack = ItemStack.EMPTY
 
@@ -60,5 +69,22 @@ class ArcanePedestalBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(
 
     override fun toInitialChunkDataNbt(): NbtCompound = NbtCompound().also(this::writeNbt)
 
+    val DEPLOY: RawAnimation = RawAnimation.begin().thenPlayAndHold("arcane_pedestal.deploy")//.thenPlay("misc.deploy").thenLoop("misc.idle")
+    private val cache = GeckoLibUtil.createInstanceCache(this)
+
+    override fun registerControllers(controllers: AnimatableManager.ControllerRegistrar) {
+        controllers.add(AnimationController(this, this::deployAnimController))
+    }
+    private fun deployAnimController(state: AnimationState<ArcanePedestalBlockEntity>): PlayState {
+        return state.setAndContinue(DEPLOY)
+    }
+
+    override fun getAnimatableInstanceCache(): AnimatableInstanceCache = cache
+
+    override fun stability(other: InfusionDataProvider?): Double {
+        other?:return -1.0
+        if(other !is ArcanePedestalBlockEntity) return 0.0
+        return if(isEmpty xor other.isEmpty) -1.0 else 1.0
+    }
 
 }

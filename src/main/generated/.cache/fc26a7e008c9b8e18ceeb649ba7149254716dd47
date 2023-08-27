@@ -1,4 +1,4 @@
-// 1.20.1	2023-08-23T17:36:17.78743213	Lost Arcana/Model Definitions
+// 1.20.1	2023-08-27T10:34:24.210977092	Lost Arcana/Model Definitions
 ab3f2276b2f994dfc106493c9b35388f61d41163 assets/lostarcana/models/block/crucible.json
 541563a392ae9e34905e7c25fb8937548ccb608a assets/lostarcana/models/item/thaumometer.json
 cdd007da37a4e8ae4d502511500fd57a3f4bc642 assets/lostarcana/blockstates/arcane_workbench.json
@@ -14,5 +14,6 @@ db490aec339775108f94f3873a28d60b327dfdab assets/lostarcana/models/item/arcane_st
 48e8f036157ee34629e63cd90c5ed54b589cc4f5 assets/lostarcana/blockstates/crucible.json
 4192c6f8bc1f837aa53a64fc5d7223904b2d89ea assets/lostarcana/blockstates/arcane_stone.json
 173ae4615962866ace6c653bff3b32f92f1d3506 assets/lostarcana/models/item/salis_mundis.json
+96ad8ae8e60db7e8fd053c2e308d8b71ccbcbfbe assets/lostarcana/models/item/thaumonomicon.json
 619b3d7610d3eaf73e5b71ceaaabf8da3e0e3a17 assets/lostarcana/models/item/arcane_stone.json
 4296764cae54e9893d60385b1572fd31c73c0154 assets/lostarcana/models/item/nitor.json

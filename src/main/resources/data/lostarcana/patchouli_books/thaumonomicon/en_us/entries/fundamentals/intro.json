@@ -1,0 +1,12 @@
+{
+  "name": "Introduction",
+  "category": "lostarcana:fundamentals_category",
+  "icon": "lostarcana:thaumonomicon",
+  "advancement": "lostarcana:fundamentals/root",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "Introduction"
+    }
+  ]
+}

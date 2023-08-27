@@ -18,12 +18,19 @@ class ArcanaEnglishLangProvider(generator: FabricDataOutput): FabricLanguageProv
         tb.add(ItemRegistry.VIS_CRYSTAL, "Vis Crystal")
         tb.add(BlockRegistry.GROWING_VIS_CRYSTAL, "Vis Crystal Seed")
         tb.add(ItemRegistry.THAUMOMETER, "Thaumometer")
+        tb.add(ItemRegistry.THAUMONOMICON, "Thaumonomicon")
+        tb.add(BlockRegistry.ARCANE_STONE, "Arcane Stone")
+        tb.add(BlockRegistry.ARCANE_STONE_TILES, "Arcane Stone Tiles")
+        tb.add(BlockRegistry.ARCANE_STONE_STAIRS, "Arcane Stone Stairs")
+        tb.add(BlockRegistry.ARCANE_STONE_TILE_STAIRS, "Arcane Stone Tiles Stairs")
+
         AspectRegistry.ASPECTS.values.forEach(tb::add)
         DyeColor.values().forEach { tb.add("nitor.color.${it.name.lowercase()}", it.name.lowercase().capitalize()) }
         tb.add("itemGroup.lostarcana.items", "Lost Arcana Items")
         tb.add("tooltip.lostarcana.growing_vis_crystal.creative_only", "Not available in survival.")
 
         tb.add("text.autoconfig.lostarcana.option.clientConfig.thaumometer", "Thaumometer Options")
+        
 
         ThaumometerUIConfig::class.declaredMemberProperties.forEach{
             val name = it.name.split(Regex("(?<=[a-z])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])")).map(String::capitalize).joinToString(" ")

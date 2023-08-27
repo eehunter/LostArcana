@@ -1,5 +1,6 @@
 package com.oyosite.ticon.lostarcana.block.entity
 
+import com.oyosite.ticon.lostarcana.LostArcana
 import net.minecraft.block.BlockState
 import net.minecraft.block.entity.BlockEntity
 import net.minecraft.util.math.BlockPos
@@ -13,8 +14,8 @@ import software.bernie.geckolib.core.`object`.PlayState
 import software.bernie.geckolib.util.GeckoLibUtil
 
 
-class InfusionPillarBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(TODO(), pos, state), GeoBlockEntity {
-    val DEPLOY: RawAnimation = RawAnimation.begin().thenPlay("misc.deploy").thenLoop("misc.idle")
+class InfusionPillarBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(LostArcana.INFUSION_PILLAR_BLOCK_ENTITY, pos, state), GeoBlockEntity {
+    val DEPLOY: RawAnimation = RawAnimation.begin().thenPlayAndHold("infusion_pillar.deploy")//.thenPlay("misc.deploy").thenLoop("misc.idle")
     private val cache = GeckoLibUtil.createInstanceCache(this)
     override fun registerControllers(ontrollers: AnimatableManager.ControllerRegistrar) {
         ontrollers.add(AnimationController(this, this::deployAnimController))

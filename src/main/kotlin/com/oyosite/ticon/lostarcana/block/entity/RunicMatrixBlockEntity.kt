@@ -9,12 +9,17 @@ import net.minecraft.block.BlockState
 import net.minecraft.block.entity.BlockEntity
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.nbt.NbtCompound
+import net.minecraft.network.listener.ClientPlayPacketListener
+import net.minecraft.network.packet.Packet
+import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket
+import net.minecraft.text.Text
 import net.minecraft.util.ActionResult
 import net.minecraft.util.Hand
 import net.minecraft.util.hit.BlockHitResult
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Direction
 import net.minecraft.world.World
+import kotlin.math.max
 
 class RunicMatrixBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(LostArcana.RUNIC_MATRIX_BLOCK_ENTITY, pos, state) {
 
@@ -27,7 +32,11 @@ class RunicMatrixBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(Los
     var tilt: Float = 0f
     var lastRenderTime = 0L
 
-    val infusionDataProviders: Array<Array<Array<List<InfusionDataProvider>?>>> = Array(2*infusionAltarHorizontalRadius+1){ Array(2*infusionAltarVerticalRadius+1){Array(2*infusionAltarHorizontalRadius+1){null} } }
+    var stabilityGain = 0.0
+    var stabilityLoss = 0.0
+    var stability = 0.0
+
+    val infusionDataProviders: Array3d<InfusionDataProvider?> = Array(2*infusionAltarHorizontalRadius+1){ Array(2*infusionAltarVerticalRadius+1){Array(2*infusionAltarHorizontalRadius+1){null} } }
 
     fun refreshStructure(){
         active = checkCoreStructure()
@@ -37,10 +46,31 @@ class RunicMatrixBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(Los
             for(x in infusionDataProviders.indices) for(y in infusionDataProviders[x].indices) for(z in infusionDataProviders[x][y].indices){
                 val p = BlockPos(pos.x+x-infusionAltarHorizontalRadius, pos.y+y-infusionAltarVerticalRadius-2, pos.z+z-infusionAltarHorizontalRadius)
                 if(p == pos.down(2))continue
-                infusionDataProviders[x][y][z] = world.getInfusionDataProviders(p)
+                infusionDataProviders[x, y, z] = world.getInfusionDataProvider(p)
             }
+            applyInfusionData()
         }
     }
+
+    private fun applyInfusionData(){
+        stabilityGain = 0.0
+        val l = infusionDataProviders.size
+        val w = infusionDataProviders[0][0].size
+        for(x in infusionDataProviders.indices) for(y in infusionDataProviders[x].indices) for(z in infusionDataProviders[x][y].indices){
+            val provider = infusionDataProviders[x, y, z]?:continue
+
+
+            if(x == l-1-x && z == w-1-z) continue
+            val oppositeProvider = infusionDataProviders[l-1-x, y, w-1-z]
+            val s = provider.stability(oppositeProvider)
+            stabilityGain += max(s,0.0)
+            stabilityLoss += max(-s, 0.0)
+        }
+    }
+
+    override fun toInitialChunkDataNbt(): NbtCompound = NbtCompound().also(this::writeNbt)
+
+    override fun toUpdatePacket(): Packet<ClientPlayPacketListener> = BlockEntityUpdateS2CPacket.create(this)
 
     private fun checkCoreStructure(): Boolean{
         if(world==null)return false
@@ -68,9 +98,13 @@ class RunicMatrixBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(Los
         hit: BlockHitResult
     ): ActionResult {
         refreshStructure()
-        if(active) return ActionResult.PASS
-        if(player.getStackInHand(hand).item == ItemRegistry.SALIS_MUNDIS) return attemptConstruction(player).also { if(it == ActionResult.SUCCESS && !player.isCreative)player.getStackInHand(hand).decrement(1) }
+        //if(active) return ActionResult.PASS
+        if(!active && player.getStackInHand(hand).item == ItemRegistry.SALIS_MUNDIS) return attemptConstruction(player).also { if(it == ActionResult.SUCCESS && !player.isCreative)player.getStackInHand(hand).decrement(1) }
 
+        if(!world.isClient && player.attributes.getValue(LostArcana.AURA_VISION) > 0.0){
+            player.sendMessage(Text.literal("Gain: $stabilityGain, Loss: $stabilityLoss, Stability: ${if(crafting)stability else "N/A"}"))
+            return ActionResult.SUCCESS
+        }
 
         return ActionResult.PASS
     }

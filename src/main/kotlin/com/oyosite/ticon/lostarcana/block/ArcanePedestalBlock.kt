@@ -2,6 +2,7 @@ package com.oyosite.ticon.lostarcana.block
 
 import com.oyosite.ticon.lostarcana.block.entity.ArcanePedestalBlockEntity
 import net.fabricmc.fabric.api.`object`.builder.v1.block.FabricBlockSettings
+import net.minecraft.block.BlockRenderType
 import net.minecraft.block.BlockState
 import net.minecraft.block.BlockWithEntity
 import net.minecraft.block.entity.BlockEntity
@@ -11,9 +12,10 @@ import net.minecraft.util.ActionResult
 import net.minecraft.util.Hand
 import net.minecraft.util.hit.BlockHitResult
 import net.minecraft.util.math.BlockPos
+import net.minecraft.world.BlockView
 import net.minecraft.world.World
 
-class ArcanePedestalBlock: BlockWithEntity(FabricBlockSettings.create()) {
+class ArcanePedestalBlock: BlockWithEntity(FabricBlockSettings.create().nonOpaque()) {
 
 
     override fun createBlockEntity(pos: BlockPos, state: BlockState): BlockEntity = ArcanePedestalBlockEntity(pos, state)
@@ -43,4 +45,8 @@ class ArcanePedestalBlock: BlockWithEntity(FabricBlockSettings.create()) {
         }
         return ActionResult.SUCCESS
     }
+
+    override fun isTransparent(state: BlockState?, world: BlockView?, pos: BlockPos?): Boolean = true
+
+    override fun getRenderType(state: BlockState?): BlockRenderType = BlockRenderType.ENTITYBLOCK_ANIMATED
 }

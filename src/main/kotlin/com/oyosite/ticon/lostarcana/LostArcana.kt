@@ -39,6 +39,7 @@ import net.minecraft.world.gen.placementmodifier.CountPlacementModifier
 import net.minecraft.world.gen.placementmodifier.SquarePlacementModifier
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
+import software.bernie.geckolib.GeckoLib
 import kotlin.jvm.optionals.getOrNull
 
 object LostArcana : ModInitializer {
@@ -54,6 +55,7 @@ object LostArcana : ModInitializer {
     val VIS_CRYSTAL_BLOCK_ENTITY: BlockEntityType<GrowingVisCrystalBlockEntity> = Registry.register(Registries.BLOCK_ENTITY_TYPE, id("growing_vis_crystal"), FabricBlockEntityTypeBuilder.create(::GrowingVisCrystalBlockEntity, BlockRegistry.GROWING_VIS_CRYSTAL).build())
     val RUNIC_MATRIX_BLOCK_ENTITY: BlockEntityType<RunicMatrixBlockEntity> = Registry.register(Registries.BLOCK_ENTITY_TYPE, id("runic_matrix"), FabricBlockEntityTypeBuilder.create(::RunicMatrixBlockEntity, BlockRegistry.RUNIC_MATRIX).build())
     val ARCANE_PEDESTAL_BLOCK_ENTITY: BlockEntityType<ArcanePedestalBlockEntity> = Registry.register(Registries.BLOCK_ENTITY_TYPE, id("arcane_pedestal"), FabricBlockEntityTypeBuilder.create(::ArcanePedestalBlockEntity, BlockRegistry.ARCANE_PEDESTAL).build())
+    val INFUSION_PILLAR_BLOCK_ENTITY: BlockEntityType<InfusionPillarBlockEntity> = Registry.register(Registries.BLOCK_ENTITY_TYPE, id("infusion_pillar"), FabricBlockEntityTypeBuilder.create(::InfusionPillarBlockEntity, BlockRegistry.INFUSION_PILLAR).build())
 
     val ESSENTIA = Registry.register(Registries.FLUID, id("essentia"), EssentiaFluid())
 
@@ -95,6 +97,7 @@ object LostArcana : ModInitializer {
             it.getOptional(RegistryKeys.PLACED_FEATURE).getOrNull()?.also { Registry.register(it, VIS_CRYSTAL_FEATURE_ID, PLACED_VIS_CRYSTAL_FEATURE); println("Registered Placed Feature") }
         }
         BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.UNDERGROUND_DECORATION, RegistryKey.of(RegistryKeys.PLACED_FEATURE, VIS_CRYSTAL_FEATURE_ID))
+        GeckoLib.initialize()
         //Registry.register(RegistryKeys.CONFIGURED_FEATURE, VIS_CRYSTAL_FEATURE_ID, CONFIGURED_VIS_CRYSTAL_FEATURE)
     }
 

@@ -2,10 +2,7 @@ package com.oyosite.ticon.lostarcana.block
 
 import com.oyosite.ticon.lostarcana.block.entity.InfusionPillarBlockEntity
 import net.fabricmc.fabric.api.`object`.builder.v1.block.FabricBlockSettings
-import net.minecraft.block.Block
-import net.minecraft.block.BlockState
-import net.minecraft.block.BlockWithEntity
-import net.minecraft.block.Blocks
+import net.minecraft.block.*
 import net.minecraft.block.entity.BlockEntity
 import net.minecraft.entity.LivingEntity
 import net.minecraft.fluid.Fluids
@@ -16,15 +13,18 @@ import net.minecraft.state.property.DirectionProperty
 import net.minecraft.state.property.Properties
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Direction
+import net.minecraft.world.BlockView
 import net.minecraft.world.World
 import net.minecraft.world.WorldAccess
 import net.minecraft.world.WorldView
 
-class InfusionPillar: BlockWithEntity(FabricBlockSettings.create()) {
+class InfusionPillar: BlockWithEntity(FabricBlockSettings.create().nonOpaque()) {
 
     init{
         defaultState = defaultState.with(DIRECTION, Direction.NORTH).with(WATERLOGGED, false)
     }
+
+    override fun isTransparent(state: BlockState?, world: BlockView?, pos: BlockPos?): Boolean = true
 
     override fun getPlacementState(ctx: ItemPlacementContext): BlockState? {
         val dir = ctx.horizontalPlayerFacing
@@ -75,6 +75,8 @@ class InfusionPillar: BlockWithEntity(FabricBlockSettings.create()) {
             else -> pos.up()
         }.let{if(world.getBlockState(it).block == BlockRegistry.INFUSION_PILLAR)world.setBlockState(it, Blocks.AIR.defaultState)}
     }
+
+    override fun getRenderType(state: BlockState?): BlockRenderType = BlockRenderType.ENTITYBLOCK_ANIMATED
 
 
 

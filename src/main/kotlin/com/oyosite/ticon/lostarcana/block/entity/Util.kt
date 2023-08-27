@@ -19,10 +19,13 @@ fun Slot(inventory: Inventory, index: Int, x: Int, y: Int, markDirtyCallback: ()
     }
 }
 
-fun World.getInfusionDataProviders(pos: BlockPos): List<InfusionDataProvider>?{
-    val providers = mutableListOf<InfusionDataProvider>()
-    getBlockState(pos).block.let { if (it is InfusionDataProvider) providers.add(it) }
-    getBlockEntity(pos)?.let{ if(it is InfusionDataProvider) providers.add(it) }
-
-    return if(providers.isEmpty())null else providers
+fun World.getInfusionDataProvider(pos: BlockPos): InfusionDataProvider?{
+    getBlockState(pos).block.let { if (it is InfusionDataProvider) return it }
+    getBlockEntity(pos)?.let{ if(it is InfusionDataProvider) return it }
+    return null
 }
+
+
+typealias Array3d<T> = Array<Array<Array<T>>>
+operator fun <T> Array3d<T>.get(x: Int, y: Int, z: Int) = this[x][y][z]
+operator fun <T> Array3d<T>.set(x: Int, y: Int, z: Int, value: T) {this[x][y][z] = value}
