@@ -19,6 +19,8 @@ object BlockRegistry: AutoRegistry<Block>(Block::class.java, Registries.BLOCK, {
     val ARCANE_WORKBENCH = ArcaneWorkbenchBlock()
     val CRUCIBLE = CrucibleBlock()
     val RUNIC_MATRIX = RunicMatrixBlock()
+    val WOODEN_TABLE = TableBlock{}
+    val RESEARCH_TABLE = ResearchTable()
 
     val NITOR = NitorBlock()
 

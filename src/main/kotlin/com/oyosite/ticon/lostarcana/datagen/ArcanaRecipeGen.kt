@@ -44,6 +44,14 @@ class ArcanaRecipeGen(generator: FabricDataOutput): FabricRecipeProvider(generat
             5
         )
 
+        //Wooden Table
+        +ShapedRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, BlockRegistry.WOODEN_TABLE).pattern("SSS").pattern("P P").input('S', WOODEN_SLABS).input('P', WOODEN_PLANKS)
+            .criterion("has_planks", conditionsFromTag(WOODEN_PLANKS)).build()
+
+        //Scribing Tools
+        +ShapelessRecipeJsonBuilder.create(RecipeCategory.TOOLS, ItemRegistry.SCRIBING_TOOLS).input(Items.INK_SAC).input(Items.GLASS_BOTTLE).input(FEATHERS)
+            .criterion("has_ink_sac", RecipeProvider.conditionsFromItem(Items.INK_SAC)).build()
+
     }
 
     class G(val exporter: Consumer<RecipeJsonProvider>){

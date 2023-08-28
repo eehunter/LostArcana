@@ -1,0 +1,13 @@
+{
+  "name": "Introduction",
+  "category": "lostarcana:fundamentals_category",
+  "icon": "lostarcana:thaumonomicon",
+  "advancement": "lostarcana:fundamentals/root",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "Introduction",
+      "text": "I don't believe it. This book... By all appearances, it seems to be a Thaumonomicon. I had thought that these were a mere legend. Stories from ages past tell of powerful mages who used books such as this to document their research on the arcane. Surely this can't actually be such a document, can it?"
+    }
+  ]
+}

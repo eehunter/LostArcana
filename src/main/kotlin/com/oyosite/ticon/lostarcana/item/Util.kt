@@ -1,7 +1,11 @@
 package com.oyosite.ticon.lostarcana.item
 
+import net.minecraft.entity.LivingEntity
 import net.minecraft.inventory.Inventory
+import net.minecraft.item.ItemStack
 import net.minecraft.recipe.Ingredient
+import java.util.function.Consumer
+import kotlin.math.min
 
 fun hasInInventory(ingredients: Iterable<Ingredient>, inventory: Inventory): Boolean{
     val ingredientsToFind = mutableListOf<Ingredient>()
@@ -37,3 +41,5 @@ fun hasInInventory(ingredients: Iterable<Ingredient>, inventory: Inventory): Boo
     }
     return ingredientsToFind.isEmpty()
 }
+
+fun scribingToolsDamageHandler(stack: ItemStack, amt: Int, entity: LivingEntity, breakCallback: Consumer<LivingEntity>): Int = stack.run{ min(amt, maxDamage-1-damage) }

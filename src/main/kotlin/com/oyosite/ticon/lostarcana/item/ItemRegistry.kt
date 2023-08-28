@@ -5,6 +5,7 @@ import com.oyosite.ticon.lostarcana.aspect.Aspect
 import com.oyosite.ticon.lostarcana.aspect.AspectRegistry
 import com.oyosite.ticon.lostarcana.block.BlockRegistry
 import com.oyosite.ticon.lostarcana.registry.AutoRegistry
+import net.fabricmc.fabric.api.item.v1.CustomDamageHandler
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup
 import net.minecraft.item.Item
@@ -33,10 +34,13 @@ object ItemRegistry : AutoRegistry<Item>(Item::class.java, Registries.ITEM){
                 BlockRegistry.CRUCIBLE,
                 SALIS_MUNDIS,
                 THAUMOMETER,
+                SCRIBING_TOOLS,
                 BlockRegistry.ARCANE_STONE,
                 BlockRegistry.ARCANE_STONE_TILES,
                 BlockRegistry.ARCANE_STONE_STAIRS,
                 BlockRegistry.ARCANE_STONE_TILE_STAIRS,
+                BlockRegistry.WOODEN_TABLE,
+                BlockRegistry.RESEARCH_TABLE,
             ).map{ if(it is ItemConvertible) ItemStack(it) else if(it is ItemStack) it else throw IllegalArgumentException("Non ItemConvertible or ItemStack cannot be added to ItemGroup.")})
             entries.addAll(DyeColor.values().map { ItemStack(BlockRegistry.NITOR, 1).apply{ setSubNbt("nitor", it.toNbt) } })
             entries.addAll(AspectRegistry.PRIMAL_ASPECTS.values.map(Aspect::growing_crystal))
@@ -47,6 +51,8 @@ object ItemRegistry : AutoRegistry<Item>(Item::class.java, Registries.ITEM){
     val VIS_CRYSTAL = VisCrystalItem()
     val THAUMOMETER = ThaumometerItem()
     val THAUMONOMICON = ThaumonomiconItem()
+
+    val SCRIBING_TOOLS = ScribingToolsItem()//Item { maxDamage(200).customDamage(::scribingToolsDamageHandler) }
 
 
 

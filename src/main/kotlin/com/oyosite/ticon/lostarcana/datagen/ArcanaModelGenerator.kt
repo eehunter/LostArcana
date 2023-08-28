@@ -17,6 +17,8 @@ class ArcanaModelGenerator(generator: FabricDataOutput): FabricModelProvider(gen
         bmg.registerSingleton(BlockRegistry.CRUCIBLE, crucibleTextureMap, block("cauldron", TextureKey.INSIDE, TextureKey.PARTICLE, TextureKey.TOP, TextureKey.BOTTOM, TextureKey.SIDE) )
         bmg.registerSimpleCubeAll(BlockRegistry.ARCANE_STONE)
         bmg.registerSimpleCubeAll(BlockRegistry.ARCANE_STONE_TILES)
+        bmg.registerSingleton(BlockRegistry.WOODEN_TABLE, TextureMap().put(TEX_ZERO, LostArcana.id("wooden_table")), Model(Optional.of(LostArcana.id("block/table")), Optional.empty(), TEX_ZERO))
+        bmg.registerSingleton(BlockRegistry.RESEARCH_TABLE, TextureMap().put(TEX_ZERO, LostArcana.id("research_table")), Model(Optional.of(LostArcana.id("block/table")), Optional.empty(), TEX_ZERO))
 
     }
 
@@ -42,11 +44,17 @@ class ArcanaModelGenerator(generator: FabricDataOutput): FabricModelProvider(gen
         img.register(ItemRegistry.THAUMOMETER, Models.GENERATED_TWO_LAYERS, "_frame", "_lens")
         img.register(BlockRegistry.NITOR, Models.GENERATED_TWO_LAYERS, "_flame", "_dot")
         img.register(ItemRegistry.THAUMONOMICON, Models.GENERATED)
+        img.register(ItemRegistry.SCRIBING_TOOLS, Models.GENERATED)
+        //img.register(BlockRegistry.WOODEN_TABLE, Model(Optional.of(LostArcana.id("table"))))
     }
 
     companion object{
         val TEXTURE_LAYERS = listOf(TextureKey.LAYER0, TextureKey.LAYER1, TextureKey.LAYER2)
+        val TEX_ZERO = TextureKey.of("0")
     }
+
+    fun ItemModelGenerator.register(item: ItemConvertible, model: Model, geckoTextureId: Identifier) = model.upload(ModelIds.getItemModelId(item.asItem()), TextureMap().put(TextureKey.of("0"), geckoTextureId), this.writer)
+
     fun ItemModelGenerator.register(item: ItemConvertible, model: Model, vararg suffixes: String = arrayOf("")){
         if(suffixes.size !in 1..3) throw IllegalArgumentException("Item model needs between 1 and 3 layers, inclusively.")
         val textureMap = TextureMap().apply{

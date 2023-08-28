@@ -36,6 +36,16 @@ class ArcanaLootTableGen(dataOutput: FabricDataOutput): FabricBlockLootTableProv
 
         +ARCANE_WORKBENCH
         +CRUCIBLE
+        +RESEARCH_TABLE
+        +WOODEN_TABLE
+        +ARCANE_STONE
+        +ARCANE_STONE_STAIRS
+        +ARCANE_STONE_TILES
+        +ARCANE_STONE_TILE_STAIRS
+        +RUNIC_MATRIX
+        +ARCANE_PEDESTAL
+        INFUSION_PILLAR + { pool { rolls(ConstantLootNumberProvider.create(2.0f)).with(applyExplosionDecay(ARCANE_STONE, ItemEntry.builder(ARCANE_STONE))) } }
+
     }
 
     operator fun Block.unaryPlus() = addDrop(this)

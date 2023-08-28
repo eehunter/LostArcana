@@ -4,6 +4,7 @@ import com.oyosite.ticon.lostarcana.block.BlockRegistry
 import com.oyosite.ticon.lostarcana.block.NitorBlock.Companion.COLOR
 import com.oyosite.ticon.lostarcana.block.entity.GrowingVisCrystalBlockEntity
 import com.oyosite.ticon.lostarcana.client.ArcaneWorkbenchScreen
+import com.oyosite.ticon.lostarcana.client.ResearchTableScreen
 import com.oyosite.ticon.lostarcana.client.blockentity.*
 import com.oyosite.ticon.lostarcana.client.onHudRender
 import com.oyosite.ticon.lostarcana.item.ItemRegistry
@@ -36,6 +37,7 @@ object LostArcanaClient: ClientModInitializer {
         ColorProviderRegistry.ITEM.register(::getThaumometerTint, ItemRegistry.THAUMOMETER)
         ColorProviderRegistry.ITEM.register(::getNitorColor, BlockRegistry.NITOR)
         HandledScreens.register(LostArcana.ARCANE_WORKBENCH_SCREEN_HANDLER, ::ArcaneWorkbenchScreen)
+        HandledScreens.register(LostArcana.RESEARCH_TABLE_SCREEN_HANDLER, ::ResearchTableScreen)
         BlockEntityRendererFactories.register(LostArcana.CRUCIBLE_BLOCK_ENTITY){cber = CrucibleBlockEntityRenderer(it); cber}
         BlockEntityRendererFactories.register(LostArcana.VIS_CRYSTAL_BLOCK_ENTITY, ::GrowingVisCrystalBlockEntityRenderer)
         BlockEntityRendererFactories.register(LostArcana.RUNIC_MATRIX_BLOCK_ENTITY, ::RunicMatrixBlockEntityRenderer)

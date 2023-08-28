@@ -1,6 +1,10 @@
-// 1.20.1	2023-08-27T10:34:24.212361941	Lost Arcana/Recipes
+// 1.20.1	2023-08-28T13:11:40.631612756	Lost Arcana/Recipes
+088cf6bb0204e1c7c7608659f4fc2cecac8fa3c9 data/lostarcana/recipes/wooden_table.json
 ba1d83b1dda74fb63892feedacf6617b616807d4 data/lostarcana/recipes/nitor_dye.json
+d8e54187e2c6c26ff0a2a73c3f579db072f4b0c1 data/lostarcana/recipes/scribing_tools.json
 9b8cc7abca6be56ccb1079866c45abc241f860e0 data/lostarcana/advancements/recipes/misc/salis_mundis.json
+4cc0f3e72276726d2954c9ec731077aeea4af0a7 data/lostarcana/advancements/recipes/decorations/wooden_table.json
+19476b24a645decaaa6ba82e4ebee42b2100152e data/lostarcana/advancements/recipes/tools/scribing_tools.json
 7e4d6698561f3479f1092e68bb536c9f8623dc83 data/lostarcana/recipes/nitor.json
 a76be6148814d0d3fcaef8b33f11744361e80bc5 data/lostarcana/recipes/salis_mundis.json
 cd1e0b31db59ece7ad5ee15d491e81d2377dffb6 data/lostarcana/recipes/thaumometer.json

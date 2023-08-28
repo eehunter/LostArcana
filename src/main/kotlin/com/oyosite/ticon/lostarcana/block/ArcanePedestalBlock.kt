@@ -1,6 +1,8 @@
 package com.oyosite.ticon.lostarcana.block
 
 import com.oyosite.ticon.lostarcana.block.entity.ArcanePedestalBlockEntity
+import com.oyosite.ticon.lostarcana.block.entity.ArcaneWorkbenchBlockEntity
+import com.oyosite.ticon.lostarcana.block.entity.ResearchTableBlockEntity
 import net.fabricmc.fabric.api.`object`.builder.v1.block.FabricBlockSettings
 import net.minecraft.block.BlockRenderType
 import net.minecraft.block.BlockState
@@ -10,6 +12,7 @@ import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ActionResult
 import net.minecraft.util.Hand
+import net.minecraft.util.ItemScatterer
 import net.minecraft.util.hit.BlockHitResult
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.BlockView
@@ -49,4 +52,21 @@ class ArcanePedestalBlock: BlockWithEntity(FabricBlockSettings.create().nonOpaqu
     override fun isTransparent(state: BlockState?, world: BlockView?, pos: BlockPos?): Boolean = true
 
     override fun getRenderType(state: BlockState?): BlockRenderType = BlockRenderType.ENTITYBLOCK_ANIMATED
+
+    override fun onStateReplaced(
+        state: BlockState,
+        world: World,
+        pos: BlockPos,
+        newState: BlockState,
+        moved: Boolean
+    ) {
+        if (state.block !== newState.block) {
+            val blockEntity = world.getBlockEntity(pos)
+            if (blockEntity is ArcaneWorkbenchBlockEntity) {
+                ItemScatterer.spawn(world, pos, blockEntity)
+                world.updateComparators(pos, this)
+            }
+            super.onStateReplaced(state, world, pos, newState, moved)
+        }
+    }
 }

@@ -51,6 +51,9 @@ object LostArcana : ModInitializer {
     val ARCANE_WORKBENCH_BLOCK_ENTITY: BlockEntityType<ArcaneWorkbenchBlockEntity> = Registry.register(Registries.BLOCK_ENTITY_TYPE, id("arcane_workbench"), FabricBlockEntityTypeBuilder.create(::ArcaneWorkbenchBlockEntity).build())
     val ARCANE_WORKBENCH_SCREEN_HANDLER: ScreenHandlerType<ArcaneWorkbenchScreenHandler> = Registry.register(Registries.SCREEN_HANDLER, id("arcane_workbench"), ScreenHandlerType<ArcaneWorkbenchScreenHandler>(::ArcaneWorkbenchScreenHandler, FeatureFlags.VANILLA_FEATURES))
 
+    val RESEARCH_TABLE_BLOCK_ENTITY: BlockEntityType<ResearchTableBlockEntity> = Registry.register(Registries.BLOCK_ENTITY_TYPE, id("research_table"), FabricBlockEntityTypeBuilder.create(::ResearchTableBlockEntity).build())
+    val RESEARCH_TABLE_SCREEN_HANDLER: ScreenHandlerType<ResearchTableScreenHandler> = Registry.register(Registries.SCREEN_HANDLER, id("research_table"), ScreenHandlerType<ResearchTableScreenHandler>(::ResearchTableScreenHandler, FeatureFlags.VANILLA_FEATURES))
+
     val CRUCIBLE_BLOCK_ENTITY: BlockEntityType<CrucibleBlockEntity> = Registry.register(Registries.BLOCK_ENTITY_TYPE, id("crucible"), FabricBlockEntityTypeBuilder.create(::CrucibleBlockEntity).addBlock(BlockRegistry.CRUCIBLE).build())
     val VIS_CRYSTAL_BLOCK_ENTITY: BlockEntityType<GrowingVisCrystalBlockEntity> = Registry.register(Registries.BLOCK_ENTITY_TYPE, id("growing_vis_crystal"), FabricBlockEntityTypeBuilder.create(::GrowingVisCrystalBlockEntity, BlockRegistry.GROWING_VIS_CRYSTAL).build())
     val RUNIC_MATRIX_BLOCK_ENTITY: BlockEntityType<RunicMatrixBlockEntity> = Registry.register(Registries.BLOCK_ENTITY_TYPE, id("runic_matrix"), FabricBlockEntityTypeBuilder.create(::RunicMatrixBlockEntity, BlockRegistry.RUNIC_MATRIX).build())

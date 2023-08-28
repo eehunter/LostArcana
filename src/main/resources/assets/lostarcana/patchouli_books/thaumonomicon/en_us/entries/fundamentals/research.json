@@ -1,0 +1,13 @@
+{
+  "name": "Research",
+  "category": "lostarcana:fundamentals_category",
+  "icon": "lostarcana:research_table",
+  "advancement": "lostarcana:fundamentals/root",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "Research",
+      "text": "I have devised some tools that should aid in my research. First I must make Scribing Tools and a Table. I can then place the Scribing Tools upon the Table to create a workstation suitable for my research. It will need to be stocked with paper and the Scribing Tools will need to be refilled with ink somewhat regularly."
+    }
+  ]
+}

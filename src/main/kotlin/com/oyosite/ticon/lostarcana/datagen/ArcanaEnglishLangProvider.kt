@@ -6,7 +6,13 @@ import com.oyosite.ticon.lostarcana.config.ThaumometerUIConfig
 import com.oyosite.ticon.lostarcana.item.ItemRegistry
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider
+import net.minecraft.block.Block
+import net.minecraft.item.Item
+import net.minecraft.item.ItemConvertible
 import net.minecraft.util.DyeColor
+import kotlin.reflect.KProperty
+import kotlin.reflect.KProperty0
+import kotlin.reflect.KProperty1
 import kotlin.reflect.full.declaredMemberProperties
 
 class ArcanaEnglishLangProvider(generator: FabricDataOutput): FabricLanguageProvider(generator, "en_us") {
@@ -24,17 +30,27 @@ class ArcanaEnglishLangProvider(generator: FabricDataOutput): FabricLanguageProv
         tb.add(BlockRegistry.ARCANE_STONE_STAIRS, "Arcane Stone Stairs")
         tb.add(BlockRegistry.ARCANE_STONE_TILE_STAIRS, "Arcane Stone Tiles Stairs")
 
+        tb.add(BlockRegistry::ARCANE_PEDESTAL)
+        tb.add(BlockRegistry::RESEARCH_TABLE)
+        tb.add(BlockRegistry::WOODEN_TABLE)
+
         AspectRegistry.ASPECTS.values.forEach(tb::add)
         DyeColor.values().forEach { tb.add("nitor.color.${it.name.lowercase()}", it.name.lowercase().capitalize()) }
         tb.add("itemGroup.lostarcana.items", "Lost Arcana Items")
         tb.add("tooltip.lostarcana.growing_vis_crystal.creative_only", "Not available in survival.")
 
         tb.add("text.autoconfig.lostarcana.option.clientConfig.thaumometer", "Thaumometer Options")
-        
+
 
         ThaumometerUIConfig::class.declaredMemberProperties.forEach{
             val name = it.name.split(Regex("(?<=[a-z])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])")).map(String::capitalize).joinToString(" ")
             tb.add("text.autoconfig.lostarcana.option.clientConfig.thaumometer.${it.name}", name)
         }
+
+
     }
+    @JvmName("addItemByProp")
+    fun <T: Item> TranslationBuilder.add(field: KProperty0<T>) = add(field.get(), field.name.split("_").map { it.lowercase().capitalize() }.joinToString(" "))
+    @JvmName("addBlockByProp")
+    fun <T: Block> TranslationBuilder.add(field: KProperty0<T>) = add(field.get(), field.name.split("_").map { it.lowercase().capitalize() }.joinToString(" "))
 }

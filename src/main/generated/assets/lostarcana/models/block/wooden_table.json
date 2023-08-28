@@ -1,0 +1,6 @@
+{
+  "parent": "lostarcana:block/table",
+  "textures": {
+    "0": "lostarcana:wooden_table"
+  }
+}
