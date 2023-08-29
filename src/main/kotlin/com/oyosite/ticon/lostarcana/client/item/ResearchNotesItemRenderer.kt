@@ -5,6 +5,7 @@ import com.oyosite.ticon.lostarcana.datagen.ResearchNotesEntityModel
 import com.oyosite.ticon.lostarcana.datagen.ResearchNotesEntityModel.render
 import com.oyosite.ticon.lostarcana.item.ResearchNotesItem.Companion.researchCategory
 import com.oyosite.ticon.lostarcana.mixin.MinecraftClientAccessor
+import net.fabricmc.fabric.api.client.model.BakedModelManagerHelper
 import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry
 import net.minecraft.client.MinecraftClient
 import net.minecraft.client.render.RenderLayer
@@ -16,17 +17,18 @@ import net.minecraft.client.render.model.json.ModelTransformationMode
 import net.minecraft.client.util.ModelIdentifier
 import net.minecraft.client.util.math.MatrixStack
 import net.minecraft.item.ItemStack
+import net.minecraft.screen.PlayerScreenHandler
 import net.minecraft.util.Identifier
 import net.minecraft.util.math.Direction
 import net.minecraft.util.math.random.Random
 
 object ResearchNotesItemRenderer: BuiltinItemRendererRegistry.DynamicItemRenderer {
-    val base: BakedModel by lazy { MinecraftClient.getInstance().itemRenderer.models.modelManager.getModel(
-        ModelIdentifier(LostArcana.id("item/research_notes"), "inventory")
-    ) }
-    val blank: BakedModel by lazy { MinecraftClient.getInstance().itemRenderer.models.modelManager.getModel(
-        ModelIdentifier(LostArcana.id("item/research_notes/blank"), "inventory")
-    ) }
+    val base: BakedModel by lazy { MinecraftClient.getInstance().itemRenderer.models.modelManager.let{BakedModelManagerHelper.getModel(it, LostArcana.id("item/research_notes"))!! }
+        //.getModel(ModelIdentifier(LostArcana.id("item/research_notes"), "inventory"))
+    }
+    val blank: BakedModel by lazy { MinecraftClient.getInstance().itemRenderer.models.modelManager.let{BakedModelManagerHelper.getModel(it, LostArcana.id("item/research_notes/blank"))!! }
+        //.getModel(ModelIdentifier(LostArcana.id("item/research_notes/blank"), "inventory"))
+    }
 
     val MODEL_MAP = mutableMapOf<Identifier, BakedModel>()
 
@@ -42,20 +44,18 @@ object ResearchNotesItemRenderer: BuiltinItemRendererRegistry.DynamicItemRendere
         overlay: Int
     ) {
         matrices.push()
-        val vertices = vertexConsumers.getBuffer(RenderLayer.getEntityCutout(LostArcana.id("item/research_notes.png")))
+        val vertices = vertexConsumers.getBuffer(RenderLayer.getEntityCutout(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE))
         base.render(stack, light, overlay, matrices, vertices)
         matrices.translate(0.25, 0.25, 0.0)
-        matrices.scale(0.5f, 0.5f, 0.5f)
-        val vertices2 = vertexConsumers.getBuffer(RenderLayer.getEntitySolid(LostArcana.id("item/research_notes/${stack.researchCategory?.id?.path?:"blank"}.png")))
+        matrices.scale(0.5f, 0.5f, 1f)
+        val vertices2 = vertexConsumers.getBuffer(RenderLayer.getEntitySolid(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE))
 
         stack.core.render(stack, light, overlay, matrices, vertices2)
-        //val entry = matrices.peek()
 
-        //vertices.quad(entry, )
         matrices.pop()
     }
 
-    private val itemColors = (MinecraftClient.getInstance() as MinecraftClientAccessor).itemColors
+    private val itemColors by lazy { (MinecraftClient.getInstance() as MinecraftClientAccessor).itemColors }
 
     private fun BakedModel.render(stack: ItemStack, light: Int, overlay: Int, matrices: MatrixStack, vertices: VertexConsumer){
         val random = Random.create()

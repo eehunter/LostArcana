@@ -10,9 +10,12 @@ import com.oyosite.ticon.lostarcana.client.item.InfusionPillarItemRenderer
 import com.oyosite.ticon.lostarcana.client.item.ResearchNotesItemRenderer
 import com.oyosite.ticon.lostarcana.client.onHudRender
 import com.oyosite.ticon.lostarcana.item.ItemRegistry
+import com.oyosite.ticon.lostarcana.research.ResearchCategory
+import com.oyosite.ticon.lostarcana.research.ResearchCategoryRegistry
 import net.fabricmc.api.ClientModInitializer
 import net.fabricmc.api.EnvType
 import net.fabricmc.api.Environment
+import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry
 import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry
 import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry
@@ -25,6 +28,7 @@ import net.minecraft.client.render.block.entity.BlockEntityRendererFactories
 import net.minecraft.client.render.entity.model.EntityModelLayer
 import net.minecraft.item.ItemStack
 import net.minecraft.util.DyeColor
+import net.minecraft.util.Identifier
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.BlockRenderView
 
@@ -47,6 +51,12 @@ object LostArcanaClient: ClientModInitializer {
         BlockEntityRendererFactories.register(LostArcana.RUNIC_MATRIX_BLOCK_ENTITY, ::RunicMatrixBlockEntityRenderer)
         BlockEntityRendererFactories.register(LostArcana.ARCANE_PEDESTAL_BLOCK_ENTITY, ::ArcanePedestalBlockEntityRenderer)
         BlockEntityRendererFactories.register(LostArcana.INFUSION_PILLAR_BLOCK_ENTITY){ ipber = InfusionPillarBlockEntityRenderer(it); ipber }
+
+        ModelLoadingRegistry.INSTANCE.registerModelProvider { manager, out ->
+            out.accept(LostArcana.id("item/research_notes"))
+            out.accept(LostArcana.id("item/research_notes/blank"))
+            manager.findResources("models/item/research_notes"){ ResearchCategoryRegistry.CATEGORIES.containsKey(Identifier(it.namespace, it.path.substringAfter("models/item/research_notes/").substringBefore(".json"))) }.keys.forEach(out)
+        }
 
         BuiltinItemRendererRegistry.INSTANCE.register(BlockRegistry.INFUSION_PILLAR, InfusionPillarItemRenderer)
         BuiltinItemRendererRegistry.INSTANCE.register(ItemRegistry.THEORY_NOTES, ResearchNotesItemRenderer)
