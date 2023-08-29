@@ -6,12 +6,15 @@ import com.oyosite.ticon.lostarcana.block.entity.GrowingVisCrystalBlockEntity
 import com.oyosite.ticon.lostarcana.client.ArcaneWorkbenchScreen
 import com.oyosite.ticon.lostarcana.client.ResearchTableScreen
 import com.oyosite.ticon.lostarcana.client.blockentity.*
+import com.oyosite.ticon.lostarcana.client.item.InfusionPillarItemRenderer
+import com.oyosite.ticon.lostarcana.client.item.ResearchNotesItemRenderer
 import com.oyosite.ticon.lostarcana.client.onHudRender
 import com.oyosite.ticon.lostarcana.item.ItemRegistry
 import net.fabricmc.api.ClientModInitializer
 import net.fabricmc.api.EnvType
 import net.fabricmc.api.Environment
 import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry
+import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback
@@ -28,6 +31,7 @@ import net.minecraft.world.BlockRenderView
 @Environment(EnvType.CLIENT)
 object LostArcanaClient: ClientModInitializer {
     private var cber: CrucibleBlockEntityRenderer? = null
+    var ipber: InfusionPillarBlockEntityRenderer? = null
 
     val visCrystalEntityModelLayer = EntityModelLayer(LostArcana.id("vis_crystal"), "main")
     val runicMatrixEntityModelLayer = EntityModelLayer(LostArcana.id("runic_matrix"), "main")
@@ -42,7 +46,11 @@ object LostArcanaClient: ClientModInitializer {
         BlockEntityRendererFactories.register(LostArcana.VIS_CRYSTAL_BLOCK_ENTITY, ::GrowingVisCrystalBlockEntityRenderer)
         BlockEntityRendererFactories.register(LostArcana.RUNIC_MATRIX_BLOCK_ENTITY, ::RunicMatrixBlockEntityRenderer)
         BlockEntityRendererFactories.register(LostArcana.ARCANE_PEDESTAL_BLOCK_ENTITY, ::ArcanePedestalBlockEntityRenderer)
-        BlockEntityRendererFactories.register(LostArcana.INFUSION_PILLAR_BLOCK_ENTITY, ::InfusionPillarBlockEntityRenderer)
+        BlockEntityRendererFactories.register(LostArcana.INFUSION_PILLAR_BLOCK_ENTITY){ ipber = InfusionPillarBlockEntityRenderer(it); ipber }
+
+        BuiltinItemRendererRegistry.INSTANCE.register(BlockRegistry.INFUSION_PILLAR, InfusionPillarItemRenderer)
+        BuiltinItemRendererRegistry.INSTANCE.register(ItemRegistry.THEORY_NOTES, ResearchNotesItemRenderer)
+        BuiltinItemRendererRegistry.INSTANCE.register(ItemRegistry.OBSERVATION_NOTES, ResearchNotesItemRenderer)
         //BlockEntityrenderer
         //BlockEntityRendererRegistry.register(LostArcana.CRUCIBLE_BLOCK_ENTITY, ::CrucibleBlockEntityRenderer)
 

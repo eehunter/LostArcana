@@ -54,6 +54,9 @@ object ItemRegistry : AutoRegistry<Item>(Item::class.java, Registries.ITEM){
 
     val SCRIBING_TOOLS = ScribingToolsItem()//Item { maxDamage(200).customDamage(::scribingToolsDamageHandler) }
 
+    val THEORY_NOTES = ResearchNotesItem(ResearchNotesType.THEORY)
+    val OBSERVATION_NOTES = ResearchNotesItem(ResearchNotesType.OBSERVATION)
+    val CELESTIAL_NOTES = ResearchNotesItem(ResearchNotesType.CELESTIAL)
 
 
 

@@ -1,6 +1,13 @@
 package com.oyosite.ticon.lostarcana.block.entity
 
 import com.oyosite.ticon.lostarcana.LostArcana
+import com.oyosite.ticon.lostarcana.item.ResearchNotesItem
+import com.oyosite.ticon.lostarcana.item.ResearchNotesItem.Companion.researchCategory
+import com.oyosite.ticon.lostarcana.item.ResearchNotesItem.Companion.researchComplete
+import com.oyosite.ticon.lostarcana.item.ResearchNotesItem.Companion.researchProgress
+import com.oyosite.ticon.lostarcana.item.ResearchNotesItem.Companion.maxResearchProgress
+import com.oyosite.ticon.lostarcana.item.ResearchNotesType
+import com.oyosite.ticon.lostarcana.research.ResearchCategory
 import net.minecraft.block.BlockState
 import net.minecraft.block.entity.BlockEntity
 import net.minecraft.entity.player.PlayerEntity
@@ -17,6 +24,7 @@ import net.minecraft.screen.ScreenHandler
 import net.minecraft.text.Text
 import net.minecraft.util.collection.DefaultedList
 import net.minecraft.util.math.BlockPos
+import kotlin.math.min
 
 class ResearchTableBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(LostArcana.RESEARCH_TABLE_BLOCK_ENTITY, pos, state), NamedScreenHandlerFactory {
 
@@ -32,6 +40,39 @@ class ResearchTableBlockEntity(pos: BlockPos, state: BlockState) : BlockEntity(L
 
     override fun writeNbt(nbt: NbtCompound) {
         Inventories.writeNbt(nbt, inv.items)
+    }
+
+    fun grantResearch(inventory: Inventory, amount: Int, researchType: ResearchNotesType, researchCategory: ResearchCategory){
+        var amt = amount
+        for(i in 0 until inventory.size()){
+            val stack = inventory.getStack(i)
+            if(stack.item !is ResearchNotesItem)continue
+            if(stack.researchCategory != researchCategory)continue
+            if(stack.researchComplete)continue
+            val remainingSpace = stack.maxResearchProgress-stack.researchProgress
+            if(remainingSpace>amt){
+                stack.researchProgress+=amt
+                return
+            }
+            stack.researchProgress = stack.maxResearchProgress
+            amt -= remainingSpace
+            if(amt == 0)return
+        }
+        while (amt > 0){
+            val stack = ItemStack(researchType.item)
+            // Maybe randomize research progress here?
+            stack.researchCategory = researchCategory
+            stack.researchProgress = min(amt, stack.maxResearchProgress)
+            amt-=stack.researchProgress
+            if(inventory is PlayerInventory){
+                val player = inventory.player
+                player.giveItemStack(stack)
+            } else for(i in 0 until inventory.size()){
+                if(!inventory.getStack(i).isEmpty)continue
+                inventory.setStack(i, stack)
+                break
+            }
+        }
     }
 
 

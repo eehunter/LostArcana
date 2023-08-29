@@ -45,6 +45,9 @@ class ArcanaModelGenerator(generator: FabricDataOutput): FabricModelProvider(gen
         img.register(BlockRegistry.NITOR, Models.GENERATED_TWO_LAYERS, "_flame", "_dot")
         img.register(ItemRegistry.THAUMONOMICON, Models.GENERATED)
         img.register(ItemRegistry.SCRIBING_TOOLS, Models.GENERATED)
+        img.register(BlockRegistry.INFUSION_PILLAR, Model(Optional.of(Identifier("builtin/entity")), Optional.empty()))
+        for(notes in listOf(ItemRegistry.THEORY_NOTES, ItemRegistry.OBSERVATION_NOTES, ItemRegistry.CELESTIAL_NOTES))img.register(notes, Model(Optional.of(Identifier("builtin/entity")), Optional.empty()))
+
         //img.register(BlockRegistry.WOODEN_TABLE, Model(Optional.of(LostArcana.id("table"))))
     }
 
