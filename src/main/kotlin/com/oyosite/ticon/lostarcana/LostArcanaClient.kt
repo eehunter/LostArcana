@@ -10,6 +10,7 @@ import com.oyosite.ticon.lostarcana.client.item.InfusionPillarItemRenderer
 import com.oyosite.ticon.lostarcana.client.item.ResearchNotesItemRenderer
 import com.oyosite.ticon.lostarcana.client.onHudRender
 import com.oyosite.ticon.lostarcana.item.ItemRegistry
+import com.oyosite.ticon.lostarcana.patchouli.GatedResearchPage
 import com.oyosite.ticon.lostarcana.research.ResearchCategory
 import com.oyosite.ticon.lostarcana.research.ResearchCategoryRegistry
 import net.fabricmc.api.ClientModInitializer
@@ -31,6 +32,7 @@ import net.minecraft.util.DyeColor
 import net.minecraft.util.Identifier
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.BlockRenderView
+import vazkii.patchouli.client.book.ClientBookRegistry
 
 @Environment(EnvType.CLIENT)
 object LostArcanaClient: ClientModInitializer {
@@ -61,6 +63,9 @@ object LostArcanaClient: ClientModInitializer {
         BuiltinItemRendererRegistry.INSTANCE.register(BlockRegistry.INFUSION_PILLAR, InfusionPillarItemRenderer)
         BuiltinItemRendererRegistry.INSTANCE.register(ItemRegistry.THEORY_NOTES, ResearchNotesItemRenderer)
         BuiltinItemRendererRegistry.INSTANCE.register(ItemRegistry.OBSERVATION_NOTES, ResearchNotesItemRenderer)
+
+        ClientBookRegistry.INSTANCE.pageTypes[LostArcana.id("gated_research_page")] = GatedResearchPage::class.java
+
         //BlockEntityrenderer
         //BlockEntityRendererRegistry.register(LostArcana.CRUCIBLE_BLOCK_ENTITY, ::CrucibleBlockEntityRenderer)
 

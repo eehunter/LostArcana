@@ -1,0 +1,15 @@
+{
+  "name": "Alchemy",
+  "category": "lostarcana:fundamentals_category",
+  "icon": "lostarcana:crucible",
+  "advancement": "lostarcana:fundamentals/root",
+  "pages": [
+    {
+      "type": "lostarcana:gated_research_page",
+      "text": "I believe that I have found a way to use this Salis Mundis I've discovered to reinforce a Cauldron and make it more suitable for alchemical usage.",
+      "cost": ["lostarcana:observation_notes{research:{complete:1b,category:\"lostarcana:alchemy\"}}"],
+      "advancementId": "lostarcana:fundamentals/crucible",
+      "advancementCriterion": "researched_crucible"
+    }
+  ]
+}

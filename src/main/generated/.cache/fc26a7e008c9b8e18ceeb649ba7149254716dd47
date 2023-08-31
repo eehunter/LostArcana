@@ -1,4 +1,4 @@
-// 1.20.1	2023-08-29T16:05:34.072738225	Lost Arcana/Model Definitions
+// 1.20.1	2023-08-31T14:52:21.83258793	Lost Arcana/Model Definitions
 541563a392ae9e34905e7c25fb8937548ccb608a assets/lostarcana/models/item/thaumometer.json
 cdd007da37a4e8ae4d502511500fd57a3f4bc642 assets/lostarcana/blockstates/arcane_workbench.json
 8fb5db3af123d99a58588a6126ba9a44074c2a01 assets/lostarcana/models/item/vis_crystal.json
@@ -8,8 +8,8 @@ cdd007da37a4e8ae4d502511500fd57a3f4bc642 assets/lostarcana/blockstates/arcane_wo
 e0f7b66a84e6588f01abbbce75b1803ffe5d46e2 assets/lostarcana/models/item/celestial_notes.json
 3955616391366f312ca2eab28efc9ea55a0c845d assets/lostarcana/models/block/arcane_stone_tiles.json
 48e8f036157ee34629e63cd90c5ed54b589cc4f5 assets/lostarcana/blockstates/crucible.json
-96ad8ae8e60db7e8fd053c2e308d8b71ccbcbfbe assets/lostarcana/models/item/thaumonomicon.json
 9d21cba2d6339b93066b28914b558fc64c5ceb94 assets/lostarcana/models/item/scribing_tools.json
+96ad8ae8e60db7e8fd053c2e308d8b71ccbcbfbe assets/lostarcana/models/item/thaumonomicon.json
 619b3d7610d3eaf73e5b71ceaaabf8da3e0e3a17 assets/lostarcana/models/item/arcane_stone.json
 0c2d7a967d7685d972ca06407b9766b76b46ba40 assets/lostarcana/models/block/research_table.json
 ab3f2276b2f994dfc106493c9b35388f61d41163 assets/lostarcana/models/block/crucible.json

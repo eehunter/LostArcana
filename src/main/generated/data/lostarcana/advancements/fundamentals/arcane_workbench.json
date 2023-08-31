@@ -1,0 +1,30 @@
+{
+  "parent": "lostarcana:fundamentals/salis_mundis",
+  "criteria": {
+    "researched_arcane_workbench": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "background": "minecraft:textures/gui/advancements/backgrounds/adventure.png",
+    "description": {
+      "translate": "advancement.lostarcana.fundamentals.arcane_workbench.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "lostarcana:crucible"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.lostarcana.fundamentals.arcane_workbench"
+    }
+  },
+  "requirements": [
+    [
+      "researched_arcane_workbench"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

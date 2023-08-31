@@ -1,6 +1,8 @@
 package com.oyosite.ticon.lostarcana.patchouli
 
+import com.oyosite.ticon.lostarcana.LostArcana
 import com.oyosite.ticon.lostarcana.item.hasInInventory
+import com.oyosite.ticon.lostarcana.network.LostArcanaC2SPacketSender
 import com.oyosite.ticon.lostarcana.patchouli.widgets.ResearchButtonWidget
 import net.fabricmc.api.EnvType
 import net.fabricmc.api.Environment
@@ -34,6 +36,9 @@ open class GatedResearchPage: BookPage() {
     var cost: IVariable? = null
     var text: IVariable? = null
 
+    var advancementId: IVariable? = null
+    var advancementCriterion: IVariable? = null
+
     @Transient var textRenderer: BookTextRenderer? = null
     @Transient var ingredients: List<Ingredient> = listOf()
 
@@ -47,6 +52,10 @@ open class GatedResearchPage: BookPage() {
 
     val textureHeight: Int = 22
 
+    val refreshAdvancement: Unit by lazy {if(isQuestDone(book))LostArcanaC2SPacketSender.sendThaumonomiconPageUnlockPacket(
+        listOf(), advancementId?.asString()?.let(LostArcana::id), advancementCriterion?.asString()
+    )}
+
     override fun build(level: World, entry: BookEntry, builder: BookContentsBuilder, pageNum: Int) {
         super.build(level, entry, builder, pageNum)
         ingredients = cost!!.asList().map{it.`as`(Ingredient::class.java)}
@@ -54,7 +63,7 @@ open class GatedResearchPage: BookPage() {
 
     fun isQuestDone(book: Book): Boolean = PersistentData.data.getBookData(book).completedManualQuests.contains(entryId)
 
-    val entryId: Identifier = Identifier(entry.id.namespace, entry.id.path+"_"+pageNum)
+    val entryId: Identifier by lazy { Identifier(entry.id.namespace, entry.id.path + "_" + pageNum) }
 
     override fun onDisplayed(parent: GuiBookEntry, left: Int, top: Int) {
         super.onDisplayed(parent, left, top)
@@ -65,11 +74,12 @@ open class GatedResearchPage: BookPage() {
             revealProgress = -1
             displayedText = calculateTextToRender(rawText)
 
-            val researchButton = ResearchButtonWidget(GuiBook.PAGE_WIDTH / 2 - 50, GuiBook.PAGE_HEIGHT - 35, 100, 20, Text.empty(), this, this::researchButtonClicked, null)
+            val researchButton = ResearchButtonWidget(GuiBook.PAGE_WIDTH / 2 - 50, GuiBook.PAGE_HEIGHT - 35, 100, 20, Text.empty(), this, this::researchButtonClicked){Text.translatable("Purchase research")}
             addButton(researchButton)
         } else {
             displayedText = rawText
             revealProgress = 0
+            refreshAdvancement
         }
         textRenderer = BookTextRenderer(parent, displayedText, 0, textureHeight)
     }
@@ -105,7 +115,11 @@ open class GatedResearchPage: BookPage() {
 
         //TODO: MinecraftClient.getInstance().soundManager.play(/*[sound]*/)
 
-        //TODO: LostArcanaC2SPacket stuff
+        var id = advancementId?.asString()?.let(LostArcana::id)
+        val criterion = if(id!=null)advancementCriterion?.asString() else null
+        if(criterion==null)id = null
+        LostArcanaC2SPacketSender.sendThaumonomiconPageUnlockPacket(ingredients, id, criterion)
+
         revealProgress=1
         lastRevealTick = MinecraftClient.getInstance().world!!.time
         MinecraftClient.getInstance().player!!.playSound(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.PLAYERS, 1f, 1f)

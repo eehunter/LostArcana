@@ -1,0 +1,30 @@
+{
+  "parent": "lostarcana:fundamentals/salis_mundis",
+  "criteria": {
+    "researched_crucible": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "background": "minecraft:textures/gui/advancements/backgrounds/adventure.png",
+    "description": {
+      "translate": "advancement.lostarcana.fundamentals.crucible.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "lostarcana:crucible"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.lostarcana.fundamentals.crucible"
+    }
+  },
+  "requirements": [
+    [
+      "researched_crucible"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

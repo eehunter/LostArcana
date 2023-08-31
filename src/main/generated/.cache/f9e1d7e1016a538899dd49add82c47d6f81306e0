@@ -1,4 +1,4 @@
-// 1.20.1	2023-08-29T16:05:34.07146529	Lost Arcana/Block Loot Tables
+// 1.20.1	2023-08-31T14:52:21.831595058	Lost Arcana/Block Loot Tables
 dad4ae83b40f9d6ea46bd7afb9621ce58eb229d2 data/lostarcana/loot_tables/blocks/nitor.json
 e1175f0662caab6ebf30e3eb57c1ed6055feebf1 data/lostarcana/loot_tables/blocks/runic_matrix.json
 06b3eff914df3e3ad24039487f2190fb77140200 data/lostarcana/loot_tables/blocks/arcane_stone_tiles.json
@@ -8,6 +8,6 @@ df973605f605f72a1f669cdf0cdc259603f4bc51 data/lostarcana/loot_tables/blocks/infu
 602c000e74de4546ceab6d168e879764d360fa00 data/lostarcana/loot_tables/blocks/wooden_table.json
 5ae44b3c85e5a64189239933ac00e3b43d0d2b08 data/lostarcana/loot_tables/blocks/arcane_pedestal.json
 bb23872e2fe9ee6080d3f9129597bac4afeda496 data/lostarcana/loot_tables/blocks/crucible.json
-2e0c80d6774742f3f8f565d4413d75a93f004f10 data/lostarcana/loot_tables/blocks/arcane_stone.json
 6305eaefb35de715626278c3ac4bb8df1be24290 data/lostarcana/loot_tables/blocks/arcane_workbench.json
+2e0c80d6774742f3f8f565d4413d75a93f004f10 data/lostarcana/loot_tables/blocks/arcane_stone.json
 b9c9516bd33268455c56fb9acced91600dbce42e data/lostarcana/loot_tables/blocks/arcane_stone_tile_stairs.json

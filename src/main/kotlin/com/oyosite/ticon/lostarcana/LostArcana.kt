@@ -6,10 +6,12 @@ import com.oyosite.ticon.lostarcana.block.entity.*
 import com.oyosite.ticon.lostarcana.config.LostArcanaConfig
 import com.oyosite.ticon.lostarcana.fluid.EssentiaFluid
 import com.oyosite.ticon.lostarcana.item.ItemRegistry
+import com.oyosite.ticon.lostarcana.network.LostArcanaC2SPacketReceiver
 import com.oyosite.ticon.lostarcana.recipe.AlchemyRecipe
 import com.oyosite.ticon.lostarcana.recipe.ArcaneWorkbenchRecipe
 import com.oyosite.ticon.lostarcana.recipe.NitorDyeRecipe
 import com.oyosite.ticon.lostarcana.recipe.UniqueVisCrystalRecipe
+import com.oyosite.ticon.lostarcana.research.ResearchCategoryRegistry
 import com.oyosite.ticon.lostarcana.world.VisCrystalFeature
 import com.oyosite.ticon.lostarcana.world.VisCrystalFeatureConfig
 import me.shedaniel.autoconfig.AutoConfig
@@ -80,6 +82,8 @@ object LostArcana : ModInitializer {
         AspectRegistry
         BlockRegistry.registerAll()
         ItemRegistry.registerAll()
+        ResearchCategoryRegistry.refreshCategories()
+        ItemRegistry.LOST_ARCANA_ITEMS
         //AlchemyRecipe.Type
         Registry.register(Registries.RECIPE_TYPE, id("alchemy"), AlchemyRecipe.Type)
         Registry.register(Registries.RECIPE_SERIALIZER, id("alchemy"), AlchemyRecipe.Serializer)
@@ -101,6 +105,8 @@ object LostArcana : ModInitializer {
         }
         BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.UNDERGROUND_DECORATION, RegistryKey.of(RegistryKeys.PLACED_FEATURE, VIS_CRYSTAL_FEATURE_ID))
         GeckoLib.initialize()
+
+        LostArcanaC2SPacketReceiver()
         //Registry.register(RegistryKeys.CONFIGURED_FEATURE, VIS_CRYSTAL_FEATURE_ID, CONFIGURED_VIS_CRYSTAL_FEATURE)
     }
 
