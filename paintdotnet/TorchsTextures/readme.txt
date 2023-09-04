@@ -1,0 +1,1 @@
+The red thing on the thauminomicon I swear is a bookmark, I am looking at the thuamcraft thauminomicon for inspiriation and I saw that
